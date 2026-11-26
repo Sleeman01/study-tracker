@@ -48,15 +48,15 @@ Acceptance criteria:
 Skills: `react-best-practices`, `superpowers:test-driven-development` (only if you approve Vitest)
 
 ### Story 3: Manage subjects
-**Sprint 2** · Branch: `feature/subjects` · Status: To do
+**Sprint 2** · Branch: `feature/subjects` · Status: **Done**
 
 > As a student, I want to add, edit and delete my subjects, each with a color and a weekly goal, so that I can organise my studying the way my classes are set up.
 
 Acceptance criteria:
-- [ ] I can add a subject with a name, one of the 8 colors, and a weekly goal in hours. It appears in the list.
-- [ ] I can edit a subject, and the change shows right away and is still there after a reload.
-- [ ] Deleting asks "Are you sure?" first, and says how many sessions will also be removed.
-- [ ] With no subjects, the screen explains what to do and shows an "Add subject" button.
+- [x] I can add a subject with a name, one of the 8 colors, and a weekly goal in hours. It appears in the list.
+- [x] I can edit a subject, and the change shows right away and is still there after a reload.
+- [x] Deleting asks "Are you sure?" first, and says how many sessions will also be removed.
+- [x] With no subjects, the screen explains what to do and shows an "Add subject" button.
 
 Skills: `frontend-design`, `web-design-guidelines`
 
