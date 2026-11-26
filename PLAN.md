@@ -153,6 +153,81 @@ Skills: `web-design-guidelines`, `playwright-cli`, `superpowers:verification-bef
 
 ---
 
+## Version 2: user accounts (Supabase)
+
+Your data moves from "only on this phone" to "in your own account", so it's safe if you lose your phone and you can use it on more than one device. Supabase gives us a database and logins, so we don't have to write our own server.
+
+| Sprint | Stories | Goal |
+|---|---|---|
+| Sprint 6 | 11, 12 | Connect to Supabase and create safe tables |
+| Sprint 7 | 13 | Sign up, log in, log out, reset password |
+| Sprint 8 | 14, 15 | Save data in the cloud and bring old data along |
+
+### Story 11: Connect to Supabase
+**Sprint 6** · Branch: `feature/supabase-setup` · Status: **To do**
+
+> As a student, I want the app connected to an online database, so that my data can be saved in my account instead of only on one phone.
+
+Acceptance criteria:
+- [ ] `@supabase/supabase-js` is installed, and there is one client file (`src/data/supabase.js`) that reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from `.env.local`.
+- [ ] `.env.local` is listed in `.gitignore` and is never committed. `.env.example` shows which values are needed, with no real keys.
+- [ ] Only the public anon key is used. The service_role / secret key is never used or asked for.
+
+Skills: `security-review`, `superpowers:verification-before-completion`
+
+### Story 12: Database tables with Row Level Security
+**Sprint 6** · Branch: `feature/database-schema` · Status: **To do**
+
+> As a student, I want my subjects and sessions stored in tables that only I can read and change, so that nobody else can see my study data.
+
+Acceptance criteria:
+- [ ] `supabase/schema.sql` creates `subjects` and `sessions`, each with a `user_id` that points to `auth.users`.
+- [ ] Row Level Security is on for both tables, with policies so a user can only select, insert, update and delete their own rows.
+- [ ] The SQL has been run in the Supabase SQL Editor (by you), and both tables show up in the Table Editor.
+
+Skills: `security-review`
+
+### Story 13: Sign up, log in, log out
+**Sprint 7** · Branch: `feature/auth-screens` · Status: **To do**
+
+> As a student, I want to create an account and log in with my email and password, so that my data belongs to me.
+
+Acceptance criteria:
+- [ ] When I'm not logged in, I see a login screen instead of the tabs. From there I can sign up or log in with email and password.
+- [ ] "Forgot password?" sends a reset email, and the link in it lets me choose a new password.
+- [ ] I can log out (Subjects screen → Account), and I go back to the login screen.
+- [ ] Mistakes show friendly messages, like "That email or password isn't right", never raw error codes.
+
+Skills: `frontend-design`, `web-design-guidelines`, `playwright-cli`
+
+### Story 14: Save data in my account
+**Sprint 8** · Branch: `feature/cloud-data` · Status: **To do**
+
+> As a student, I want my subjects and sessions saved to my account, so that they're still there on another device or after I log back in.
+
+Acceptance criteria:
+- [ ] Adding, editing and deleting subjects and sessions saves them to Supabase for the logged-in user. The screens work exactly as before.
+- [ ] After logging out and back in (or on another browser), my data is still there.
+- [ ] One user can never see another user's data. This was tested with two test accounts.
+- [ ] If saving fails (for example with no internet), the app shows a friendly message instead of silently losing the change.
+
+Skills: `react-best-practices`, `security-review`, `playwright-cli`
+
+### Story 15: Bring my old data along
+**Sprint 8** · Branch: `feature/local-migration` · Status: **To do**
+
+> As a student who already used the app, I want to be asked whether to upload the data on my phone into my new account, so that I don't lose my study history.
+
+Acceptance criteria:
+- [ ] On first login, if this device has saved subjects or sessions, the app asks whether to upload them, and says how many there are.
+- [ ] "Upload" copies them into my account. Afterwards they show on every screen, and I'm not asked again.
+- [ ] "Not now" skips the upload and leaves the data on the device. That account isn't asked again.
+- [ ] Uploading twice can't create duplicates.
+
+Skills: `superpowers:verification-before-completion`, `playwright-cli`
+
+---
+
 ## Visual design direction: "notebook and highlighter"
 
 **Idea:** the app feels like a student's notebook. The paper is cool and blue-ruled, the text looks like navy ink, and each subject is a highlighter color. Lists look like lines on notebook paper, not stacks of identical cards.
