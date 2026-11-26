@@ -35,6 +35,7 @@ export function formatLongDate(timestamp) {
 // "1 h 25 min", "45 min", "2 h", or "40 s" for very short sessions
 export function formatDuration(ms) {
   const totalSeconds = Math.max(0, Math.floor(ms / 1000))
+  if (totalSeconds === 0) return '0 min'
   if (totalSeconds < 60) return `${totalSeconds} s`
   const totalMinutes = Math.floor(totalSeconds / 60)
   const hours = Math.floor(totalMinutes / 60)

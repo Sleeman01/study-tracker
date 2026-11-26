@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { groupByDay, newestFirst, sessionsOnDay, totalDuration } from './stats.js'
+import { chartScale, groupByDay, newestFirst, sessionsOnDay, totalDuration, weekTotals } from './stats.js'
 import { addDays, formatDayLabel, formatDuration, startOfDay, startOfWeek } from './time.js'
 
 // new Date(year, monthIndex, day, hour, minute): months start at 0, so 10 = November
@@ -8,6 +8,7 @@ const at = (day, hour, minute = 0) => new Date(2026, 10, day, hour, minute).getT
 const MIN = 60_000
 
 test('formatDuration', () => {
+  assert.equal(formatDuration(0), '0 min')
   assert.equal(formatDuration(40_000), '40 s')
   assert.equal(formatDuration(45 * MIN), '45 min')
   assert.equal(formatDuration(120 * MIN), '2 h')
@@ -52,4 +53,22 @@ test('formatDayLabel says Today and Yesterday', () => {
   assert.equal(formatDayLabel(at(26, 0), at(26, 18)), 'Today')
   assert.equal(formatDayLabel(at(25, 0), at(26, 18)), 'Yesterday')
   assert.notEqual(formatDayLabel(at(20, 0), at(26, 18)), 'Today')
+})
+
+test('weekTotals gives Monday to Sunday with zero for empty days', () => {
+  const sessions = [
+    { id: 'a', subjectId: 's', startedAt: at(23, 9), endedAt: at(23, 10) }, // Monday
+    { id: 'b', subjectId: 's', startedAt: at(26, 9), endedAt: at(26, 9, 30) }, // Thursday
+    { id: 'c', subjectId: 's', startedAt: at(22, 9), endedAt: at(22, 10) }, // last week's Sunday
+  ]
+  const week = weekTotals(sessions, at(26, 18))
+  assert.equal(week.length, 7)
+  assert.equal(week[0].dayStart, at(23, 0))
+  assert.deepEqual(week.map((d) => d.total / MIN), [60, 0, 0, 30, 0, 0, 0])
+})
+
+test('chartScale picks a tidy top and gridlines', () => {
+  assert.deepEqual(chartScale(0), { top: 1, ticks: [0.5, 1] })
+  assert.deepEqual(chartScale(150 * MIN), { top: 3, ticks: [1, 2, 3] })
+  assert.deepEqual(chartScale(312 * MIN), { top: 6, ticks: [2, 4, 6] })
 })
