@@ -63,3 +63,12 @@ test('delete a session', () => {
   state = studyReducer(state, { type: 'session/delete', id: 'a' })
   assert.equal(state.sessions.length, 0)
 })
+
+test('loading cloud data keeps the running timer', () => {
+  let state = studyReducer(withSubjects(), { type: 'timer/start', subjectId: 's1', startedAt: 50 })
+  const session = { id: 'a', subjectId: 's2', startedAt: 0, endedAt: 10 }
+  state = studyReducer(state, { type: 'data/loaded', subjects: [math], sessions: [session] })
+  assert.deepEqual(state.subjects, [math])
+  assert.deepEqual(state.sessions, [session])
+  assert.deepEqual(state.activeTimer, { subjectId: 's1', startedAt: 50 })
+})

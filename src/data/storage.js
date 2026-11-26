@@ -2,7 +2,15 @@
 // localStorage only stores text, so we turn our data into JSON text
 // when saving, and back into objects when loading.
 
+// Before accounts, everything was saved under this one key.
+// Now it's only read to offer uploading it (see Story 15).
 export const STORAGE_KEY = 'study-tracker-v1'
+
+// Each account gets its own copy on the device: the running timer, plus a
+// copy of the cloud data so the app still opens when you're offline.
+export function userStorageKey(userId) {
+  return `study-tracker-user-${userId}`
+}
 
 export function emptyData() {
   return { subjects: [], sessions: [], activeTimer: null }
@@ -51,18 +59,18 @@ export function parseData(text) {
   }
 }
 
-export function loadData(storage = globalThis.localStorage) {
+export function loadData(storage = globalThis.localStorage, key = STORAGE_KEY) {
   try {
-    return parseData(storage.getItem(STORAGE_KEY))
+    return parseData(storage.getItem(key))
   } catch {
     // localStorage can be blocked (for example in some private modes)
     return emptyData()
   }
 }
 
-export function saveData(data, storage = globalThis.localStorage) {
+export function saveData(data, storage = globalThis.localStorage, key = STORAGE_KEY) {
   try {
-    storage.setItem(STORAGE_KEY, JSON.stringify(data))
+    storage.setItem(key, JSON.stringify(data))
   } catch {
     // Storage full or blocked: the app keeps working, it just can't save.
   }
