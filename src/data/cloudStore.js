@@ -81,7 +81,6 @@ export async function uploadStudyData({ subjects, sessions }) {
   await insertMissing('sessions', sessions.map(sessionToRow))
 }
 
-// Friendly text when saving or loading fails
 // True when the problem is "no internet", not a mistake in the data
 export function isOfflineError(error) {
   return (
@@ -90,6 +89,7 @@ export function isOfflineError(error) {
   )
 }
 
+// Friendly text when saving or loading fails
 export function friendlySyncError(error) {
   if (isOfflineError(error)) return "You're offline, so your last change wasn't saved to your account."
   if (error?.code === 'PGRST301' || error?.status === 401) {
