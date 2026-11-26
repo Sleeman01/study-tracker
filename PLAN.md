@@ -86,14 +86,14 @@ Acceptance criteria:
 Skills: `frontend-design`
 
 ### Story 6: Session history
-**Sprint 3** · Branch: `feature/history` · Status: To do
+**Sprint 3** · Branch: `feature/history` · Status: **Done**
 
 > As a student, I want a list of my past sessions that I can delete from, so that I can review my studying and remove mistakes.
 
 Acceptance criteria:
-- [ ] Sessions are grouped by date, newest first, and each shows its subject, start time and duration.
-- [ ] Deleting a session asks for confirmation, then removes it from History, Today and Stats.
-- [ ] With no sessions yet, the screen says how to record one.
+- [x] Sessions are grouped by date, newest first, and each shows its subject, start time and duration.
+- [x] Deleting a session asks for confirmation, then removes it from History, Today and Stats.
+- [x] With no sessions yet, the screen says how to record one.
 
 Skills: `frontend-design`, `web-design-guidelines`
 

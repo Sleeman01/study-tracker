@@ -1,7 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { newestFirst, sessionsOnDay, totalDuration } from './stats.js'
-import { addDays, formatDuration, startOfDay, startOfWeek } from './time.js'
+import { groupByDay, newestFirst, sessionsOnDay, totalDuration } from './stats.js'
+import { addDays, formatDayLabel, formatDuration, startOfDay, startOfWeek } from './time.js'
 
 // new Date(year, monthIndex, day, hour, minute): months start at 0, so 10 = November
 const at = (day, hour, minute = 0) => new Date(2026, 10, day, hour, minute).getTime()
@@ -34,4 +34,22 @@ test('sessionsOnDay and totalDuration only count that day', () => {
   assert.deepEqual(today.map((s) => s.id), ['a', 'b'])
   assert.equal(totalDuration(today), 90 * MIN)
   assert.deepEqual(newestFirst(today).map((s) => s.id), ['b', 'a'])
+})
+
+test('groupByDay puts newest days and sessions first', () => {
+  const sessions = [
+    { id: 'a', subjectId: 's', startedAt: at(24, 9), endedAt: at(24, 10) },
+    { id: 'b', subjectId: 's', startedAt: at(26, 9), endedAt: at(26, 9, 30) },
+    { id: 'c', subjectId: 's', startedAt: at(26, 14), endedAt: at(26, 15) },
+  ]
+  const groups = groupByDay(sessions)
+  assert.deepEqual(groups.map((g) => g.dayStart), [at(26, 0), at(24, 0)])
+  assert.deepEqual(groups[0].sessions.map((s) => s.id), ['c', 'b'])
+  assert.equal(groups[0].total, 90 * MIN)
+})
+
+test('formatDayLabel says Today and Yesterday', () => {
+  assert.equal(formatDayLabel(at(26, 0), at(26, 18)), 'Today')
+  assert.equal(formatDayLabel(at(25, 0), at(26, 18)), 'Yesterday')
+  assert.notEqual(formatDayLabel(at(20, 0), at(26, 18)), 'Today')
 })

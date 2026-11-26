@@ -300,3 +300,9 @@
   outline: 2px solid var(--ink);
   outline-offset: 5px;
 }
+
+/* Two buttons side by side: keep each label on one line */
+.dialog-actions .button {
+  padding: 0 var(--space-2);
+  white-space: nowrap;
+}

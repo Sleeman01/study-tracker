@@ -1,0 +1,28 @@
+.history-day + .history-day {
+  margin-top: var(--space-5);
+}
+
+.history-day-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+}
+
+.history-day-title {
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.history-day-total {
+  font-weight: 650;
+  font-variation-settings: var(--mono);
+  color: var(--pencil);
+}
+
+/* Lets the browser skip drawing days that are far off screen */
+.history-day {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 240px;
+}
