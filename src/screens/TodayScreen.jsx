@@ -39,50 +39,52 @@ export default function TodayScreen({ onNavigate }) {
         <p className="today-date">{formatLongDate(now)}</p>
       </div>
 
-      {subjects.length === 0 ? (
-        <EmptyState
-          title="Add a subject first"
-          text="The timer needs to know what you’re studying. Add a subject like Biology or Maths, then come back here."
-          actionLabel="Add a subject"
-          onAction={() => onNavigate('subjects')}
-        />
-      ) : (
-        <>
-          <SubjectPicker
-            subjects={subjects}
-            value={selectedId}
-            onChange={setChosenId}
-            disabled={activeTimer !== null}
+      <div className="today-layout">
+        {subjects.length === 0 ? (
+          <EmptyState
+            title="Add a subject first"
+            text="The timer needs to know what you’re studying. Add a subject like Biology or Maths, then come back here."
+            actionLabel="Add a subject"
+            onAction={() => onNavigate('subjects')}
           />
-          <Timer
-            activeTimer={activeTimer}
-            subject={selectedSubject}
-            canStart={selectedSubject !== null}
-            onStart={() => actions.startTimer(selectedId)}
-            onStop={actions.stopTimer}
-          />
-        </>
-      )}
-
-      {subjects.length > 0 ? (
-        <section className="today-summary" aria-labelledby="today-total-label">
-          <div className="today-total">
-            <h2 id="today-total-label" className="today-total-label">
-              Studied today
-            </h2>
-            <p className="today-total-value">{formatDuration(todayTotal)}</p>
+        ) : (
+          <div className="today-main">
+            <SubjectPicker
+              subjects={subjects}
+              value={selectedId}
+              onChange={setChosenId}
+              disabled={activeTimer !== null}
+            />
+            <Timer
+              activeTimer={activeTimer}
+              subject={selectedSubject}
+              canStart={selectedSubject !== null}
+              onStart={() => actions.startTimer(selectedId)}
+              onStop={actions.stopTimer}
+            />
           </div>
-          {todaySessions.length === 0 ? (
-            <p className="today-none">No sessions yet today. Your finished sessions will appear here.</p>
-          ) : (
-            <ul className="ruled-list">
-              {todaySessions.map((session) => (
-                <SessionRow key={session.id} session={session} subject={subjectsById.get(session.subjectId)} />
-              ))}
-            </ul>
-          )}
-        </section>
-      ) : null}
+        )}
+
+        {subjects.length > 0 ? (
+          <section className="today-summary" aria-labelledby="today-total-label">
+            <div className="today-total">
+              <h2 id="today-total-label" className="today-total-label">
+                Studied today
+              </h2>
+              <p className="today-total-value">{formatDuration(todayTotal)}</p>
+            </div>
+            {todaySessions.length === 0 ? (
+              <p className="today-none">No sessions yet today. Your finished sessions will appear here.</p>
+            ) : (
+              <ul className="ruled-list">
+                {todaySessions.map((session) => (
+                  <SessionRow key={session.id} session={session} subject={subjectsById.get(session.subjectId)} />
+                ))}
+              </ul>
+            )}
+          </section>
+        ) : null}
+      </div>
     </>
   )
 }

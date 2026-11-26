@@ -5,7 +5,7 @@ import AuthScreen from './screens/AuthScreen.jsx'
 import NameScreen from './screens/NameScreen.jsx'
 import { getUserName } from './auth/userName.js'
 import UploadLocalDataDialog from './components/UploadLocalDataDialog.jsx'
-import TabBar from './components/TabBar.jsx'
+import MainNav from './components/MainNav.jsx'
 import TodayScreen from './screens/TodayScreen.jsx'
 import SubjectsScreen from './screens/SubjectsScreen.jsx'
 import StatsScreen from './screens/StatsScreen.jsx'
@@ -51,7 +51,7 @@ export default function App() {
   )
 }
 
-// The app you already know: 5 screens and the bottom tab bar
+// The app you already know: 5 screens and the main navigation
 function TabsApp() {
   // The one piece of state that decides which screen is showing
   const [currentTab, setCurrentTab] = useState('today')
@@ -65,10 +65,10 @@ function TabsApp() {
 
   return (
     <div className="app">
-      <main className="screen">
+      <MainNav currentTab={currentTab} onTabChange={handleTabChange} />
+      <main className="screen" data-screen={currentTab}>
         <Screen onNavigate={handleTabChange} />
       </main>
-      <TabBar currentTab={currentTab} onTabChange={handleTabChange} />
       <UploadLocalDataDialog />
     </div>
   )

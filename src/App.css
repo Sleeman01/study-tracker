@@ -1,5 +1,7 @@
 /* ------------------------------------------------------------
-   App shell: screen area + bottom tab bar
+   App shell: the screen area + the main navigation
+   Phone first; tablets and PCs are changed in the @media blocks
+   at the end of this section.
    ------------------------------------------------------------ */
 .screen {
   max-width: var(--content-width);
@@ -24,10 +26,8 @@
   color: var(--pencil);
 }
 
-/* ------------------------------------------------------------
-   Tab bar
-   ------------------------------------------------------------ */
-.tab-bar {
+/* ---------- Main navigation: phone = bar along the bottom ---------- */
+.main-nav {
   position: fixed;
   inset: auto 0 0 0;
   z-index: 10;
@@ -36,7 +36,13 @@
   padding-bottom: env(safe-area-inset-bottom); /* above the phone's home bar */
 }
 
-.tab-bar-list {
+/* The app name and the sidebar's name line only show on a PC */
+.nav-brand,
+.nav-name {
+  display: none;
+}
+
+.nav-list {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   max-width: var(--content-width);
@@ -45,7 +51,7 @@
   list-style: none;
 }
 
-.tab-button {
+.nav-button {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -62,23 +68,29 @@
   touch-action: manipulation; /* no double-tap zoom delay */
 }
 
-.tab-button svg {
+.nav-button svg {
+  flex: none;
   width: 24px;
   height: 24px;
 }
 
-/* The selected tab: ink color, bolder label, and a short
-   highlighter stroke above the icon */
-.tab-button:hover {
+.nav-text {
+  display: grid;
+  min-width: 0;
+}
+
+.nav-button:hover {
   color: var(--ink);
 }
 
-.tab-button[aria-current='page'] {
+/* The selected tab: ink color, bolder label, and a short
+   highlighter stroke above the icon */
+.nav-button[aria-current='page'] {
   color: var(--ink);
   font-weight: 650;
 }
 
-.tab-button[aria-current='page']::before {
+.nav-button[aria-current='page']::before {
   content: '';
   position: absolute;
   top: 0;
@@ -88,8 +100,134 @@
   background: var(--ink);
 }
 
-.tab-button:focus-visible {
+.nav-button:focus-visible {
   outline-offset: -4px;
+}
+
+/* ---------- Tablet (700px+): a narrow rail down the left ---------- */
+@media (min-width: 700px) {
+  .app {
+    display: grid;
+    grid-template-columns: var(--nav-rail-width) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  /* The rail is the notebook's margin: white paper with a red margin line */
+  .main-nav {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    padding: calc(var(--space-3) + env(safe-area-inset-top)) 0 var(--space-3);
+    border-top: 0;
+    border-right: 2px solid var(--margin-line);
+    overflow-y: auto;
+    /* A column: the app name (PC only) on top, the list fills the rest */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--space-1);
+    max-width: none;
+    margin: 0; /* the phone bar centres itself with auto margins; the rail must not */
+  }
+
+  /* Profile sits at the bottom, away from the study tabs */
+  .nav-item-profile {
+    margin-top: auto;
+  }
+
+  .nav-button {
+    height: auto;
+    min-height: 64px;
+    padding: var(--space-2) var(--space-1);
+  }
+
+  /* The selected tab: a highlighter stroke down the inner edge */
+  .nav-button[aria-current='page']::before {
+    inset: 12px auto 12px 0;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .screen {
+    width: 100%;
+    max-width: var(--content-width-wide);
+    padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--space-5) var(--space-5);
+  }
+
+  /* Lists and forms read best in a narrower column */
+  .screen[data-screen='subjects'],
+  .screen[data-screen='history'],
+  .screen[data-screen='profile'] {
+    max-width: var(--content-width-reading);
+  }
+}
+
+/* ---------- PC (1100px+): a full sidebar with labels ---------- */
+@media (min-width: 1100px) {
+  .app {
+    grid-template-columns: var(--nav-sidebar-width) minmax(0, 1fr);
+  }
+
+  .main-nav {
+    padding: var(--space-5) var(--space-3) var(--space-4);
+  }
+
+  .nav-brand {
+    display: block;
+    margin: 0 0 var(--space-5) var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    font-variation-settings: var(--casual);
+  }
+
+  .nav-button {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: var(--space-3);
+    min-height: 48px;
+    padding: var(--space-2) var(--space-3);
+    border-radius: 10px;
+    font-size: var(--text-md);
+    text-align: left;
+  }
+
+  .nav-button:hover {
+    background: var(--rule-faint);
+  }
+
+  /* On a PC the selected tab is highlighted like a line in your notes */
+  .nav-button[aria-current='page'] {
+    background: linear-gradient(transparent 18%, var(--highlight) 18% 82%, transparent 82%);
+  }
+
+  .nav-button[aria-current='page']::before {
+    display: none;
+  }
+
+  .nav-name {
+    display: block;
+    overflow: hidden;
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--pencil);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .screen {
+    padding-inline: clamp(var(--space-5), 4vw, 4rem);
+  }
+
+  .screen[data-screen='today'],
+  .screen[data-screen='stats'] {
+    max-width: var(--content-width-pc);
+  }
 }
 
 /* Shown for a moment while the app checks if you're logged in */
@@ -145,4 +283,12 @@
   color: var(--sheet);
   font-weight: 650;
   cursor: pointer;
+}
+
+/* No bottom bar on tablets and PCs, so the note sits near the bottom edge */
+@media (min-width: 700px) {
+  .sync-message {
+    inset: auto var(--space-4) var(--space-4) auto;
+    max-width: 26rem;
+  }
 }

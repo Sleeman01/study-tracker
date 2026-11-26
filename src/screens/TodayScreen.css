@@ -143,3 +143,22 @@
   border-top: 1px solid var(--rule);
   color: var(--pencil);
 }
+
+/* ---------- PC (1100px+): timer on the left, today's sessions on the right ---------- */
+@media (min-width: 1100px) {
+  .today-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 1fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  /* The timer is the app's one bold moment, so it grows with the screen */
+  .timer-digits {
+    font-size: clamp(5.5rem, 7.5vw, 8.5rem);
+  }
+
+  .today-summary {
+    margin-top: 0;
+  }
+}
