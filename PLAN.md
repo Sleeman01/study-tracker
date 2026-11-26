@@ -61,15 +61,15 @@ Acceptance criteria:
 Skills: `frontend-design`, `web-design-guidelines`
 
 ### Story 4: Study timer
-**Sprint 2** · Branch: `feature/today-timer` · Status: To do
+**Sprint 2** · Branch: `feature/today-timer` · Status: **Done**
 
 > As a student, I want to choose a subject and start and stop a timer, so that I know exactly how long I studied.
 
 Acceptance criteria:
-- [ ] I can't start the timer until a subject is chosen.
-- [ ] After pressing Start, the timer counts up every second, and the subject's color highlights the digits.
-- [ ] If I close and reopen the app while the timer is running, it still shows the correct time.
-- [ ] Pressing Stop saves a session (subject, start time, end time) and resets the timer.
+- [x] I can't start the timer until a subject is chosen.
+- [x] After pressing Start, the timer counts up every second, and the subject's color highlights the digits.
+- [x] If I close and reopen the app while the timer is running, it still shows the correct time.
+- [x] Pressing Stop saves a session (subject, start time, end time) and resets the timer.
 
 Skills: `frontend-design`, `react-best-practices`
 

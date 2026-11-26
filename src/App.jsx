@@ -5,7 +5,6 @@ import SubjectsScreen from './screens/SubjectsScreen.jsx'
 import StatsScreen from './screens/StatsScreen.jsx'
 import HistoryScreen from './screens/HistoryScreen.jsx'
 import './App.css'
-import './components/ui.css'
 
 // Which screen belongs to which tab id
 const SCREENS = {
