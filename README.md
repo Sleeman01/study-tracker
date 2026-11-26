@@ -2,15 +2,50 @@
 
 A phone app for timing study sessions. Choose a subject, start the timer, and see your weekly progress, goals and study streak. It's a **PWA** (Progressive Web App): it runs in the browser and can be installed on your home screen. You log in with an email and password, and your subjects and sessions are saved to your account in **Supabase** (an online database with logins), so they're safe on any device.
 
-Built with React + Vite. See `PLAN.md` for the user stories and design, and `CLAUDE.md` for how we work.
+## Features
 
-## First-time setup (Supabase)
+- Add subjects, each with a color and an optional weekly goal
+- A study timer that keeps running even if you close the app
+- Today's total, a history of past sessions, a weekly bar chart, goal progress and a study streak
+- Accounts: sign up, log in, log out and reset your password. Your data follows you to any device
+- Data saved on the phone before accounts can be uploaded into your account on first login
 
-1. Create a project at supabase.com.
-2. **SQL Editor** → New query → paste all of `supabase/schema.sql` → **Run**. This creates the tables and the security rules (Row Level Security).
-3. **Authentication → URL Configuration** → add `http://localhost:5173` (and later your `https://` address) to **Redirect URLs**, so "Forgot password" links open the app.
-4. Copy `.env.example` to `.env.local` and fill in the two values from **Project Settings → API**. Use the **anon / publishable** key only, never the service_role / secret key. `.env.local` is ignored by git, so your keys are never committed.
-5. Restart `npm run dev` after changing `.env.local`.
+## Tech used
+
+| Part | What it does here |
+|---|---|
+| **React** | Builds the screens out of reusable components |
+| **Vite** | Runs the app while developing and builds the finished files |
+| **Supabase** | Email + password logins and a Postgres database. **Row Level Security** makes sure each user can only read and change their own rows |
+| **PWA** (Progressive Web App) | A web app manifest and a service worker, so it installs on a phone's home screen and opens offline |
+| Plain CSS | Colors and fonts in CSS variables, no CSS framework |
+| Node's test runner | Unit tests (`npm test`), no extra test library |
+
+See `PLAN.md` for the user stories and design, and `CLAUDE.md` for how the project is worked on.
+
+## Run it locally
+
+You need **Node.js** (version 22 or newer) and a free **Supabase** account.
+
+1. Get the code and install the libraries:
+   ```bash
+   git clone https://github.com/Sleeman01/study-tracker.git
+   cd study-tracker
+   npm install
+   ```
+2. Create a project at supabase.com. Then go to **SQL Editor** → New query, paste all of `supabase/schema.sql`, and press **Run**. This creates the tables and the security rules (Row Level Security).
+3. In Supabase, go to **Authentication → URL Configuration** and add `http://localhost:5173` (and later your `https://` address) to **Redirect URLs**, so "Forgot password" links open the app.
+4. Copy `.env.example` to a new file called `.env.local` in the project folder, and fill in your own values from Supabase → **Project Settings → API**:
+   ```bash
+   # .env.local  (never commit this file; git already ignores it)
+   VITE_SUPABASE_URL=https://your-project-id.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-or-publishable-key
+   ```
+   | Name | What goes in it |
+   |---|---|
+   | `VITE_SUPABASE_URL` | Your project's URL |
+   | `VITE_SUPABASE_ANON_KEY` | The **anon / publishable** key. It's safe in the browser because Row Level Security protects the data. **Never** use the service_role / secret key here |
+5. Start the app with `npm run dev`, and open http://localhost:5173. If you change `.env.local` later, restart `npm run dev`.
 
 Supabase's free built-in email only sends to the addresses of your Supabase team members, and only a few emails per hour. To send "Forgot password" emails to anyone, set up your own email (SMTP) under **Authentication → Emails**.
 
@@ -45,9 +80,8 @@ This lets you use the app on your phone, but **not install it**. Phones only ins
 
 The app needs to be online at an `https://` address first. One free option is **Vercel**:
 
-1. Push this project to GitHub.
-2. Sign in at vercel.com with GitHub and import the repository. It detects Vite automatically.
-3. Open the `https://...vercel.app` address on your phone, then:
+1. Sign in at vercel.com with GitHub and import the `study-tracker` repository. It detects Vite automatically.
+2. Open the `https://...vercel.app` address on your phone, then:
    - **Android (Chrome):** menu ⋮ → **Install app**
    - **iPhone (Safari):** Share → **Add to Home Screen**
 
