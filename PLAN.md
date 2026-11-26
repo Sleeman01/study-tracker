@@ -123,14 +123,14 @@ Acceptance criteria:
 Skills: `dataviz`, `frontend-design`
 
 ### Story 9: Install on my phone
-**Sprint 5** · Branch: `feature/pwa-install` · Status: To do
+**Sprint 5** · Branch: `feature/pwa-install` · Status: **Done** (phone install still to try after deploying)
 
 > As a student, I want to install the app on my phone's home screen and use it offline, so that it feels like a real app and works without internet.
 
 Acceptance criteria:
-- [ ] The app has its own name and icon (no more Vite logo).
-- [ ] On the phone, "Add to Home Screen" / "Install app" works, and the app opens full-screen.
-- [ ] With internet turned off, the installed app still opens and the timer works.
+- [x] The app has its own name and icon (no more Vite logo).
+- [ ] On the phone, "Add to Home Screen" / "Install app" works, and the app opens full-screen. *(Chrome reports it installable with no errors; trying it on a real phone needs an https:// deploy, see README.)*
+- [x] With internet turned off, the installed app still opens and the timer works.
 
 Skills: `react-best-practices`, `deploy-to-vercel` (phones need HTTPS before they will install a PWA)
 
