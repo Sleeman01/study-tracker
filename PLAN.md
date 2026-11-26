@@ -214,15 +214,15 @@ Acceptance criteria:
 Skills: `react-best-practices`, `security-review`, `playwright-cli`
 
 ### Story 15: Bring my old data along
-**Sprint 8** · Branch: `feature/local-migration` · Status: **To do**
+**Sprint 8** · Branch: `feature/local-migration` · Status: **Done**
 
 > As a student who already used the app, I want to be asked whether to upload the data on my phone into my new account, so that I don't lose my study history.
 
 Acceptance criteria:
-- [ ] On first login, if this device has saved subjects or sessions, the app asks whether to upload them, and says how many there are.
-- [ ] "Upload" copies them into my account. Afterwards they show on every screen, and I'm not asked again.
-- [ ] "Not now" skips the upload and leaves the data on the device. That account isn't asked again.
-- [ ] Uploading twice can't create duplicates.
+- [x] On first login, if this device has saved subjects or sessions, the app asks whether to upload them, and says how many there are.
+- [x] "Upload" copies them into my account. Afterwards they show on every screen, and I'm not asked again.
+- [x] "Not now" skips the upload and leaves the data on the device. That account isn't asked again.
+- [x] Uploading twice can't create duplicates.
 
 Skills: `superpowers:verification-before-completion`, `playwright-cli`
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from './auth/AuthContext.js'
 import StudyDataProvider from './data/StudyDataProvider.jsx'
 import AuthScreen from './screens/AuthScreen.jsx'
+import UploadLocalDataDialog from './components/UploadLocalDataDialog.jsx'
 import TabBar from './components/TabBar.jsx'
 import TodayScreen from './screens/TodayScreen.jsx'
 import SubjectsScreen from './screens/SubjectsScreen.jsx'
@@ -58,6 +59,7 @@ function TabsApp() {
         <Screen onNavigate={handleTabChange} />
       </main>
       <TabBar currentTab={currentTab} onTabChange={handleTabChange} />
+      <UploadLocalDataDialog />
     </div>
   )
 }

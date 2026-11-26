@@ -125,9 +125,10 @@ export default function StudyDataProvider({ children }) {
         dispatch({ type: 'subject/delete', id })
         save(() => cloud.deleteSubject(id))
       },
-      // The running timer stays on this device, so starting it saves nothing to the cloud
-      startTimer: (subjectId) =>
-        dispatch({ type: 'timer/start', subjectId, startedAt: Date.now() }),
+      // The running timer stays on this device, so starting it saves nothing to the cloud.
+      // startedAt is only passed when an old timer is carried over (Story 15).
+      startTimer: (subjectId, startedAt = Date.now()) =>
+        dispatch({ type: 'timer/start', subjectId, startedAt }),
       stopTimer: () => {
         const timer = dataRef.current.activeTimer
         // Mark it stopped now, so a quick double tap can't save it twice
