@@ -36,6 +36,16 @@
   background: var(--sheet);
 }
 
+/* Small phones: the chart goes edge to edge so each day stays 44px wide */
+@media (max-width: 400px) {
+  .week-chart {
+    margin-inline: calc(var(--space-3) * -1);
+    padding-inline: var(--space-2);
+    border-inline: 0;
+    border-radius: 0;
+  }
+}
+
 .week-readout {
   display: flex;
   justify-content: space-between;
