@@ -28,3 +28,10 @@ The full build plan is in `PLAN.md`.
 - Mobile-first: design for a phone screen first (about 390px wide).
 - Plain CSS with CSS variables for colors and fonts (see "Visual design" in `PLAN.md`).
 - Commands: `npm run dev` (start the app), `npm run build` (build for production), `npm run lint` (check the code).
+
+## Dev server
+
+- **Never start your own dev server** (no `npm run dev`, `npx vite`, or `npm run preview`, on any port).
+- My dev server runs in Windows PowerShell on port 5173. You run inside WSL, so you may not see it in your process list, but it is running.
+- For browser tests, use `http://localhost:5173`.
+- If it doesn't respond, **ask me** to start or check it. Don't start a new one.
