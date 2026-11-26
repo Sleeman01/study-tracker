@@ -57,3 +57,18 @@ export function checkNewPassword(password) {
   }
   return ''
 }
+
+// Changing your password needs your current password (Story 17)
+export const WRONG_CURRENT_PASSWORD = "Your current password isn't right. Check it and try again."
+
+const CURRENT_PASSWORD_CODES = new Set([
+  'invalid_credentials', // our own check: logging in with the current password failed
+  'current_password_mismatch', // Supabase's "Require current password" setting
+  'current_password_required',
+  'reauthentication_not_valid',
+])
+
+export function isWrongCurrentPassword(error) {
+  if (!error) return false
+  return CURRENT_PASSWORD_CODES.has(error.code) || /current password/i.test(error.message ?? '')
+}

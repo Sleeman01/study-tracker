@@ -1,11 +1,5 @@
 import Icon from './Icon.jsx'
-
-const TABS = [
-  { id: 'today', label: 'Today' },
-  { id: 'subjects', label: 'Subjects' },
-  { id: 'stats', label: 'Stats' },
-  { id: 'history', label: 'History' },
-]
+import { TABS } from '../navigation.js'
 
 export default function TabBar({ currentTab, onTabChange }) {
   return (

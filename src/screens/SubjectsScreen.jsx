@@ -7,7 +7,6 @@ import ConfirmDialog from '../components/ConfirmDialog.jsx'
 import EmptyState from '../components/EmptyState.jsx'
 import SubjectForm from '../components/SubjectForm.jsx'
 import Icon from '../components/Icon.jsx'
-import AccountSection from '../components/AccountSection.jsx'
 
 export default function SubjectsScreen() {
   const { data, actions } = useStudyData()
@@ -94,8 +93,6 @@ export default function SubjectsScreen() {
           onCancel={() => setEditing(null)}
         />
       </Dialog>
-
-      <AccountSection />
 
       <ConfirmDialog
         open={deleting !== null}
