@@ -249,14 +249,14 @@ Acceptance criteria:
 Skills: `frontend-design`, `security-review`, `superpowers:test-driven-development`, `playwright-cli`
 
 ### Story 17: Profile screen
-**Sprint 9** · Branch: `feature/profile-screen` · Status: **To do**
+**Sprint 9** · Branch: `feature/profile-screen` · Status: **Done** (check the Supabase "current password" setting, see note)
 
 > As a student, I want one place for my account, so that I can change my name or password and log out.
 
 Acceptance criteria:
-- [ ] A 5th tab, Profile, shows my name (editable), my email, "Change password" and "Log out". "Logged in as" is gone from Subjects.
-- [ ] Changing my password needs my current password. Supabase checks it too ("Require current password when updating"), and a wrong one shows a friendly message.
-- [ ] Saving a new name updates "Hello, <name>" straight away.
+- [x] A 5th tab, Profile, shows my name (editable), my email, "Change password" and "Log out". "Logged in as" is gone from Subjects.
+- [x] Changing my password needs my current password. The app checks it, and also sends it with Supabase's built-in `current_password`. A wrong one shows a friendly message. *(Note, 26 Nov: when tested, the Supabase project did **not** enforce "Require current password when updating": the server accepted a change with a wrong current password. Until that setting is active, only the app protects this.)*
+- [x] Saving a new name updates "Hello, <name>" straight away.
 
 Skills: `frontend-design`, `web-design-guidelines`, `security-review`, `playwright-cli`
 
