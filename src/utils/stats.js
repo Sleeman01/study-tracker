@@ -65,3 +65,28 @@ export function chartScale(maxMs) {
   for (let t = step; t <= top; t += step) ticks.push(t)
   return { top, ticks }
 }
+
+// Study time per subject this week: Map(subjectId -> ms)
+export function subjectWeekTotals(sessions, now) {
+  const monday = startOfWeek(now)
+  const totals = new Map()
+  for (const s of sessionsBetween(sessions, monday, addDays(monday, 7))) {
+    totals.set(s.subjectId, (totals.get(s.subjectId) ?? 0) + sessionDuration(s))
+  }
+  return totals
+}
+
+// How many days in a row you've studied, counting back from today.
+// If you haven't studied yet today, counting starts from yesterday,
+// so the streak doesn't "break" in the morning.
+export function studyStreak(sessions, now) {
+  const studyDays = new Set(sessions.map((s) => startOfDay(s.startedAt)))
+  let day = startOfDay(now)
+  if (!studyDays.has(day)) day = addDays(day, -1)
+  let streak = 0
+  while (studyDays.has(day)) {
+    streak += 1
+    day = addDays(day, -1)
+  }
+  return streak
+}
