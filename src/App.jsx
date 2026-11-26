@@ -70,8 +70,12 @@ function TabsApp() {
 
   return (
     <div className="app">
+      {/* Keyboard users can jump past the navigation (hidden until focused) */}
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <MainNav currentTab={currentTab} onTabChange={handleTabChange} />
-      <main ref={screenRef} className="screen" data-screen={currentTab}>
+      <main ref={screenRef} id="main" tabIndex={-1} className="screen" data-screen={currentTab}>
         <Screen onNavigate={handleTabChange} />
       </main>
       <UploadLocalDataDialog />
