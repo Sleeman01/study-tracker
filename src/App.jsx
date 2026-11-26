@@ -10,6 +10,7 @@ import TodayScreen from './screens/TodayScreen.jsx'
 import SubjectsScreen from './screens/SubjectsScreen.jsx'
 import StatsScreen from './screens/StatsScreen.jsx'
 import HistoryScreen from './screens/HistoryScreen.jsx'
+import ProfileScreen from './screens/ProfileScreen.jsx'
 import './App.css'
 
 // Which screen belongs to which tab id
@@ -18,6 +19,7 @@ const SCREENS = {
   subjects: SubjectsScreen,
   stats: StatsScreen,
   history: HistoryScreen,
+  profile: ProfileScreen,
 }
 
 // The "gate": checks if you're logged in, then shows either the
@@ -49,7 +51,7 @@ export default function App() {
   )
 }
 
-// The app you already know: 4 screens and the bottom tab bar
+// The app you already know: 5 screens and the bottom tab bar
 function TabsApp() {
   // The one piece of state that decides which screen is showing
   const [currentTab, setCurrentTab] = useState('today')

@@ -1,0 +1,32 @@
+/* ------------------------------------------------------------
+   Profile: sections separated by a ruled line, like notebook pages
+   ------------------------------------------------------------ */
+.profile-section {
+  max-width: 28rem;
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--rule);
+}
+
+.profile-section:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.profile-title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.profile-section .form {
+  gap: var(--space-3);
+}
+
+.profile-email {
+  margin-top: var(--space-4);
+  overflow-wrap: anywhere; /* long emails wrap instead of overflowing */
+}
+
+.profile-button {
+  justify-self: start;
+}

@@ -14,6 +14,12 @@ const PATHS = {
     </>
   ),
   stats: <path d="M4 20h16M7 16v-5M12 16V6M17 16v-8" />,
+  profile: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5" />
+    </>
+  ),
   history: <path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" />,
   plus: <path d="M12 5v14M5 12h14" />,
   edit: <path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4" />,
