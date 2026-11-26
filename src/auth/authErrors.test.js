@@ -4,7 +4,9 @@ import {
   checkEmail,
   checkNewPassword,
   friendlyAuthError,
+  isWrongCurrentPassword,
   OFFLINE_MESSAGE,
+  WRONG_CURRENT_PASSWORD,
 } from './authErrors.js'
 
 test('known error codes become friendly sentences', () => {
@@ -36,4 +38,15 @@ test('email and password checks', () => {
   assert.equal(checkNewPassword(''), 'Choose a password.')
   assert.match(checkNewPassword('short'), /at least 8/)
   assert.equal(checkNewPassword('long enough'), '')
+})
+
+test('recognises a wrong current password, whichever way Supabase says it', () => {
+  assert.equal(isWrongCurrentPassword({ code: 'invalid_credentials' }), true)
+  assert.equal(isWrongCurrentPassword({ code: 'current_password_mismatch' }), true)
+  assert.equal(isWrongCurrentPassword({ code: 'current_password_required' }), true)
+  assert.equal(isWrongCurrentPassword({ code: 'reauthentication_not_valid' }), true)
+  assert.equal(isWrongCurrentPassword({ message: 'Current password is incorrect' }), true)
+  assert.equal(isWrongCurrentPassword({ code: 'weak_password' }), false)
+  assert.equal(isWrongCurrentPassword(null), false)
+  assert.match(WRONG_CURRENT_PASSWORD, /current password isn't right/)
 })
