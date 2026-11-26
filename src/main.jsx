@@ -12,3 +12,11 @@ createRoot(document.getElementById('root')).render(
     </StudyDataProvider>
   </StrictMode>,
 )
+
+// Register the service worker (offline support). Only in the built app:
+// during development it would keep serving old files and confuse you.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+  })
+}
