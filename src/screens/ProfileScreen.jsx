@@ -50,6 +50,7 @@ function NameSection({ savedName }) {
     const nameError = checkName(name)
     setError(nameError)
     if (nameError) return nameRef.current.focus()
+    if (unchanged) return setSaved(true) // nothing new to save
 
     setBusy(true)
     // Supabase announces USER_UPDATED, so "Hello, <name>" updates everywhere
@@ -73,7 +74,7 @@ function NameSection({ savedName }) {
         inputRef={nameRef}
       />
       <FormMessage error={serverError} notice={saved ? 'Name saved.' : ''} />
-      <button type="submit" className="button profile-button" disabled={busy || unchanged}>
+      <button type="submit" className="button profile-button" disabled={busy}>
         {busy ? 'Saving…' : 'Save name'}
       </button>
     </form>
