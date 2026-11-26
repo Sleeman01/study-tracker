@@ -188,15 +188,15 @@ Acceptance criteria:
 Skills: `security-review`
 
 ### Story 13: Sign up, log in, log out
-**Sprint 7** · Branch: `feature/auth-screens` · Status: **To do**
+**Sprint 7** · Branch: `feature/auth-screens` · Status: **Done** (real reset email still to try with your own address)
 
 > As a student, I want to create an account and log in with my email and password, so that my data belongs to me.
 
 Acceptance criteria:
-- [ ] When I'm not logged in, I see a login screen instead of the tabs. From there I can sign up or log in with email and password.
-- [ ] "Forgot password?" sends a reset email, and the link in it lets me choose a new password.
-- [ ] I can log out (Subjects screen → Account), and I go back to the login screen.
-- [ ] Mistakes show friendly messages, like "That email or password isn't right", never raw error codes.
+- [x] When I'm not logged in, I see a login screen instead of the tabs. From there I can sign up or log in with email and password.
+- [ ] "Forgot password?" sends a reset email, and the link in it lets me choose a new password. *(The email request and the "Choose a new password" screen are tested. Supabase's built-in mailer only sends to your Supabase team's addresses, so try the real email with your own address.)*
+- [x] I can log out (Subjects screen → Account), and I go back to the login screen.
+- [x] Mistakes show friendly messages, like "That email or password isn't right", never raw error codes.
 
 Skills: `frontend-design`, `web-design-guidelines`, `playwright-cli`
 
