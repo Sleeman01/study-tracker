@@ -236,15 +236,15 @@ Skills: `superpowers:verification-before-completion`, `playwright-cli`
 | Sprint 10 | 18, 19 | Looks good on phone, tablet and PC; swipe between tabs |
 
 ### Story 16: My name
-**Sprint 9** · Branch: `feature/user-name` · Status: **To do**
+**Sprint 9** · Branch: `feature/user-name` · Status: **Done**
 
 > As a student, I want the app to know my name, so that it feels like my own notebook.
 
 Acceptance criteria:
-- [ ] Signing up asks for my name (required, 1-40 characters), with friendly errors.
-- [ ] An account without a name sees a one-time "What's your name?" screen after logging in. If saving fails because I'm offline, I can continue, and I'm asked again next time.
-- [ ] The Today screen says "Hello, <my name>".
-- [ ] The name is saved in my Supabase account (user metadata), so it shows on every device. Only I can read it.
+- [x] Signing up asks for my name (required, 1-40 characters), with friendly errors.
+- [x] An account without a name sees a one-time "What's your name?" screen after logging in. If saving fails because I'm offline, I can continue, and I'm asked again next time.
+- [x] The Today screen says "Hello, <my name>".
+- [x] The name is saved in my Supabase account (user metadata), so it shows on every device. Only I can read it.
 
 Skills: `frontend-design`, `security-review`, `superpowers:test-driven-development`, `playwright-cli`
 
