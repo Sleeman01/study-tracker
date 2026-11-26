@@ -63,7 +63,8 @@ export const WRONG_CURRENT_PASSWORD = "Your current password isn't right. Check 
 
 const CURRENT_PASSWORD_CODES = new Set([
   'invalid_credentials', // our own check: logging in with the current password failed
-  'current_password_mismatch', // Supabase's "Require current password" setting
+  'current_password_invalid', // Supabase's "Require current password" setting: wrong one
+  'current_password_mismatch',
   'current_password_required',
   'reauthentication_not_valid',
 ])
