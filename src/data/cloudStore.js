@@ -60,12 +60,38 @@ export const addSession = (session) => run(supabase.from('sessions').insert(sess
 
 export const deleteSession = (id) => run(supabase.from('sessions').delete().eq('id', id))
 
+// Upload many rows at once (used when moving old device data into the
+// account). "ignoreDuplicates" means: if a row with the same id is already
+// in your account, skip it. So uploading twice can't create copies.
+const UPLOAD_BATCH = 500
+
+async function insertMissing(table, rows) {
+  for (let i = 0; i < rows.length; i += UPLOAD_BATCH) {
+    await run(
+      supabase
+        .from(table)
+        .upsert(rows.slice(i, i + UPLOAD_BATCH), { onConflict: 'user_id,id', ignoreDuplicates: true }),
+    )
+  }
+}
+
+export async function uploadStudyData({ subjects, sessions }) {
+  // Subjects first: every session needs its subject to exist already
+  await insertMissing('subjects', subjects.map(subjectToRow))
+  await insertMissing('sessions', sessions.map(sessionToRow))
+}
+
 // Friendly text when saving or loading fails
-export function friendlySyncError(error) {
-  const offline =
+// True when the problem is "no internet", not a mistake in the data
+export function isOfflineError(error) {
+  return (
     (typeof navigator !== 'undefined' && navigator.onLine === false) ||
     /failed to fetch|network|load failed/i.test(error?.message ?? '')
-  if (offline) return "You're offline, so your last change wasn't saved to your account."
+  )
+}
+
+export function friendlySyncError(error) {
+  if (isOfflineError(error)) return "You're offline, so your last change wasn't saved to your account."
   if (error?.code === 'PGRST301' || error?.status === 401) {
     return 'Your login has expired. Log out and log in again to keep saving.'
   }
