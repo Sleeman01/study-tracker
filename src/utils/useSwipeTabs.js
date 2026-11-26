@@ -29,7 +29,7 @@ export function useSwipeTabs(screenRef, currentTab, onTabChange) {
     function reset() {
       gesture = null
       el.style.transform = ''
-      el.style.transition = ''
+      el.style.userSelect = ''
     }
 
     function springBack(fromX) {
@@ -57,6 +57,7 @@ export function useSwipeTabs(screenRef, currentTab, onTabChange) {
         if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) return reset() // scrolling
         if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy) * 1.5) return // not sure yet
         gesture.dragging = true
+        el.style.userSelect = 'none' // no accidental text selection while dragging
       }
       if (reduceMotion()) return
       const direction = dx < 0 ? 'next' : 'previous'
