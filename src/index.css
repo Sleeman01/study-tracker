@@ -61,6 +61,8 @@
 }
 
 html {
+  /* Keep focused items from hiding behind the tab bar */
+  scroll-padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 1rem);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -89,6 +91,11 @@ h2,
 h3,
 p {
   margin: 0;
+}
+
+h1,
+h2 {
+  text-wrap: balance; /* no single word left alone on a line */
 }
 
 button {

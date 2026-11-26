@@ -67,10 +67,10 @@ export default function HistoryScreen({ onNavigate }) {
   )
 }
 
-// "Biology, 50 min (Today, 9:22 AM). This can't be undone."
+// "Biology, 50 min (Today, 9:22 AM). This can’t be undone."
 function describeSession(session, subjectsById, now) {
   const name = subjectsById.get(session.subjectId)?.name ?? 'Deleted subject'
   const day = formatDayLabel(startOfDay(session.startedAt), now)
   const duration = formatDuration(sessionDuration(session))
-  return `${name}, ${duration} (${day}, ${formatTime(session.startedAt)}). This can't be undone.`
+  return `${name}, ${duration} (${day}, ${formatTime(session.startedAt)}). This can’t be undone.`
 }

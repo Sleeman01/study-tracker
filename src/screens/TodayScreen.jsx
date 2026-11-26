@@ -39,7 +39,7 @@ export default function TodayScreen({ onNavigate }) {
       {subjects.length === 0 ? (
         <EmptyState
           title="Add a subject first"
-          text="The timer needs to know what you're studying. Add a subject like Biology or Maths, then come back here."
+          text="The timer needs to know what you’re studying. Add a subject like Biology or Maths, then come back here."
           actionLabel="Add a subject"
           onAction={() => onNavigate('subjects')}
         />

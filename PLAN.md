@@ -135,14 +135,14 @@ Acceptance criteria:
 Skills: `react-best-practices`, `deploy-to-vercel` (phones need HTTPS before they will install a PWA)
 
 ### Story 10: Final phone check
-**Sprint 5** · Branch: `feature/phone-check` · Status: To do
+**Sprint 5** · Branch: `feature/phone-check` · Status: **Done**
 
 > As a student, I want the app to be easy and comfortable to use on my phone, so that tracking my study never feels like a chore.
 
 Acceptance criteria:
-- [ ] Every screen looks right on a small phone (360px wide) and a large one (430px wide).
-- [ ] Every button is easy to tap (at least 44px) and every one has a label screen readers can read.
-- [ ] The accessibility review finds no serious problems.
+- [x] Every screen looks right on a small phone (360px wide) and a large one (430px wide).
+- [x] Every button is easy to tap (at least 44px) and every one has a label screen readers can read.
+- [x] The accessibility review finds no serious problems.
 
 Skills: `web-design-guidelines`, `playwright-cli`, `superpowers:verification-before-completion`
 
