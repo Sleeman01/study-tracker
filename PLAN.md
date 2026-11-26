@@ -74,14 +74,14 @@ Acceptance criteria:
 Skills: `frontend-design`, `react-best-practices`
 
 ### Story 5: Today's total
-**Sprint 3** · Branch: `feature/today-total` · Status: To do
+**Sprint 3** · Branch: `feature/today-total` · Status: **Done**
 
 > As a student, I want to see how long I've studied today, so that I can tell whether I've done enough.
 
 Acceptance criteria:
-- [ ] The Today screen shows the total time studied today (for example "1 h 25 min").
-- [ ] A list under the timer shows today's sessions: subject, start time, and duration.
-- [ ] The total updates right after a session is stopped.
+- [x] The Today screen shows the total time studied today (for example "1 h 25 min").
+- [x] A list under the timer shows today's sessions: subject, start time, and duration.
+- [x] The total updates right after a session is stopped.
 
 Skills: `frontend-design`
 

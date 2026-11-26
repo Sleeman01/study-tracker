@@ -113,3 +113,33 @@
   min-height: 56px;
   font-size: var(--text-lg);
 }
+
+/* ---------- Today's total and sessions ---------- */
+.today-summary {
+  margin-top: var(--space-5);
+}
+
+.today-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+}
+
+.today-total-label {
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.today-total-value {
+  font-size: var(--text-lg);
+  font-weight: 650;
+  font-variation-settings: var(--mono);
+}
+
+.today-none {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--rule);
+  color: var(--pencil);
+}
