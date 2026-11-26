@@ -89,6 +89,7 @@
 }
 
 .week-bars {
+  position: relative; /* paints the bars in front of the gridlines */
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
@@ -148,4 +149,106 @@
   color: var(--ink);
   text-decoration: underline 2px;
   text-underline-offset: 4px;
+}
+
+/* ---------- Streak ---------- */
+.streak {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.streak-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--rule-faint);
+  color: var(--pencil);
+}
+
+.streak-icon.is-on {
+  background: color-mix(in srgb, #e0a21b 30%, var(--sheet));
+  color: var(--ink);
+}
+
+.streak-title {
+  font-size: var(--text-xl);
+  font-variation-settings: var(--casual);
+  line-height: 1.1;
+}
+
+.streak-hint {
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+/* ---------- Weekly goals ---------- */
+.goal-list {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.goal-line {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.goal-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.goal-value {
+  font-size: var(--text-sm);
+  font-variation-settings: var(--mono);
+  white-space: nowrap;
+}
+
+.goal-track {
+  height: 8px;
+  margin-top: var(--space-2);
+  border-radius: 999px;
+  background: var(--rule-faint);
+  overflow: hidden; /* the fill can never poke out past 100% */
+}
+
+.goal-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--dot);
+  transition: width 0.4s ease;
+}
+
+.goal-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+.goal-status.is-reached {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.stats-empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  color: var(--pencil);
 }

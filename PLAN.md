@@ -111,14 +111,14 @@ Acceptance criteria:
 Skills: `dataviz`, `frontend-design`
 
 ### Story 8: Weekly goals and streak
-**Sprint 4** · Branch: `feature/goals-streak` · Status: To do
+**Sprint 4** · Branch: `feature/goals-streak` · Status: **Done**
 
 > As a student, I want to see my progress toward each subject's weekly goal and my study streak, so that I stay motivated to keep going.
 
 Acceptance criteria:
-- [ ] Each subject shows a progress bar in its color with text like "3 h 20 min of 5 h".
-- [ ] A goal that's reached shows as complete, and the bar doesn't overflow past 100%.
-- [ ] The streak counts days in a row with at least one session. It doesn't reset if I haven't studied yet *today*.
+- [x] Each subject shows a progress bar in its color with text like "3 h 20 min of 5 h".
+- [x] A goal that's reached shows as complete, and the bar doesn't overflow past 100%.
+- [x] The streak counts days in a row with at least one session. It doesn't reset if I haven't studied yet *today*.
 
 Skills: `dataviz`, `frontend-design`
 

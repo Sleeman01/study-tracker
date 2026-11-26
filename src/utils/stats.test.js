@@ -1,6 +1,15 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { chartScale, groupByDay, newestFirst, sessionsOnDay, totalDuration, weekTotals } from './stats.js'
+import {
+  chartScale,
+  groupByDay,
+  newestFirst,
+  sessionsOnDay,
+  studyStreak,
+  subjectWeekTotals,
+  totalDuration,
+  weekTotals,
+} from './stats.js'
 import { addDays, formatDayLabel, formatDuration, startOfDay, startOfWeek } from './time.js'
 
 // new Date(year, monthIndex, day, hour, minute): months start at 0, so 10 = November
@@ -71,4 +80,29 @@ test('chartScale picks a tidy top and gridlines', () => {
   assert.deepEqual(chartScale(0), { top: 1, ticks: [0.5, 1] })
   assert.deepEqual(chartScale(150 * MIN), { top: 3, ticks: [1, 2, 3] })
   assert.deepEqual(chartScale(312 * MIN), { top: 6, ticks: [2, 4, 6] })
+})
+
+test('subjectWeekTotals adds up time per subject this week only', () => {
+  const sessions = [
+    { id: 'a', subjectId: 'bio', startedAt: at(23, 9), endedAt: at(23, 10) },
+    { id: 'b', subjectId: 'bio', startedAt: at(26, 9), endedAt: at(26, 9, 30) },
+    { id: 'c', subjectId: 'maths', startedAt: at(24, 9), endedAt: at(24, 9, 15) },
+    { id: 'd', subjectId: 'bio', startedAt: at(22, 9), endedAt: at(22, 10) }, // last week
+  ]
+  const totals = subjectWeekTotals(sessions, at(26, 18))
+  assert.equal(totals.get('bio'), 90 * MIN)
+  assert.equal(totals.get('maths'), 15 * MIN)
+})
+
+test('studyStreak counts days in a row', () => {
+  const on = (day) => ({ id: String(day), subjectId: 's', startedAt: at(day, 10), endedAt: at(day, 11) })
+  // Studied 24, 25, 26 -> 3 days
+  assert.equal(studyStreak([on(24), on(25), on(26)], at(26, 20)), 3)
+  // Not yet today, but 24 and 25 -> streak still 2 in the morning
+  assert.equal(studyStreak([on(24), on(25)], at(26, 8)), 2)
+  // A gap breaks it: 22, (no 23), 24, 25, 26 -> 3
+  assert.equal(studyStreak([on(22), on(24), on(25), on(26)], at(26, 20)), 3)
+  // Last studied two days ago -> 0
+  assert.equal(studyStreak([on(23), on(24)], at(26, 20)), 0)
+  assert.equal(studyStreak([], at(26, 20)), 0)
 })
