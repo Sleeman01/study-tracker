@@ -1,6 +1,6 @@
-# Study Tracker: Version 1 plan
+# Study Tracker: plan
 
-An installable phone app (PWA) for timing study sessions. It has 4 screens and a bottom tab bar, and saves all data on the device.
+An installable phone app (PWA) for timing study sessions. It has 4 screens and a bottom tab bar. Version 1 (stories 1-10) saved all data on the device. Version 2 (stories 11-15) added accounts: you log in, and your data is saved to your account in Supabase.
 
 ---
 
@@ -274,12 +274,23 @@ The font files are saved inside the project (`public/fonts/`), so the app works 
 study-tracker/
 ├── public/
 │   ├── fonts/            Recursive font file
-│   └── icons/            App icons for the home screen
+│   ├── icons/            App icons for the home screen
+│   ├── manifest.webmanifest   App name and icons (for installing)
+│   └── sw.js             Service worker (opens the app offline)
+├── scripts/
+│   └── check-rls.mjs     Security check with two test accounts (npm run check:rls)
+├── supabase/
+│   └── schema.sql        Tables + Row Level Security (run in the SQL Editor)
 ├── src/
 │   ├── main.jsx          Starts React
-│   ├── App.jsx           Holds the current tab and shows the right screen
+│   ├── App.jsx           Login screen or tabs; holds the current tab
 │   ├── index.css         Colors, fonts, base styles (CSS variables)
+│   ├── auth/
+│   │   ├── AuthProvider.jsx  Tracks who is logged in
+│   │   ├── AuthContext.js    useAuth() for any component
+│   │   └── authErrors.js     Friendly login error messages
 │   ├── screens/
+│   │   ├── AuthScreen.jsx    Log in, sign up, forgot / new password
 │   │   ├── TodayScreen.jsx
 │   │   ├── SubjectsScreen.jsx
 │   │   ├── StatsScreen.jsx
@@ -293,14 +304,26 @@ study-tracker/
 │   │   ├── SessionRow.jsx
 │   │   ├── WeekChart.jsx
 │   │   ├── GoalProgress.jsx
+│   │   ├── StreakTile.jsx
+│   │   ├── Dialog.jsx
 │   │   ├── ConfirmDialog.jsx
-│   │   └── EmptyState.jsx
+│   │   ├── EmptyState.jsx
+│   │   ├── Icon.jsx
+│   │   ├── AccountSection.jsx
+│   │   └── UploadLocalDataDialog.jsx
 │   ├── data/
-│   │   ├── storage.js        Read/write localStorage
-│   │   └── useStudyData.js   React hook + context shared by all screens
+│   │   ├── supabase.js           The one Supabase client (reads .env.local)
+│   │   ├── StudyDataProvider.jsx Shares { data, actions } and saves to the cloud
+│   │   ├── studyReducer.js       Every way the data can change
+│   │   ├── cloudStore.js         Database calls for subjects and sessions
+│   │   ├── cloudRows.js          App data <-> database rows
+│   │   ├── storage.js            Device copy in localStorage
+│   │   ├── migration.js          Upload old device data into an account
+│   │   └── useStudyData.js       React hook used by all screens
 │   └── utils/
 │       ├── time.js           Format durations, find start of day/week
 │       └── stats.js          Weekly totals, goal progress, streak
+├── .env.example          Which keys .env.local needs (no real values)
 ├── CLAUDE.md
 └── PLAN.md
 ```
@@ -319,10 +342,19 @@ study-tracker/
 | `GoalProgress` | One subject's progress bar toward its weekly goal |
 | `ConfirmDialog` | "Are you sure?" before deleting anything |
 | `EmptyState` | Message + button when a screen has nothing yet |
+| `AuthScreen` | Log in, sign up, "forgot password" and "choose a new password" |
+| `AccountSection` | "Logged in as ..." and Log out, at the bottom of Subjects |
+| `UploadLocalDataDialog` | On first login, offers to upload data saved on the device before accounts |
 
 ## Data model
 
-Saved in `localStorage` as JSON (text) under one key, `study-tracker-v1`:
+**Where it lives (version 2):**
+- **Supabase** stores each user's subjects and sessions in the `subjects` and `sessions` tables (see `supabase/schema.sql`). Every row has a `user_id`, and **Row Level Security** lets each user see and change only their own rows.
+- **localStorage is only a local cache:** `study-tracker-user-<user id>` holds a copy of that user's data (so the app opens offline) plus the running timer, which belongs to one device and isn't sent to the cloud.
+- The old `study-tracker-v1` key (version 1) is only read to offer uploading it. After an upload it's kept as a backup under `study-tracker-v1-uploaded`.
+- The Supabase keys are in `.env.local`, which is never committed.
+
+Inside the app, the data has the same shape as in version 1 (`cloudRows.js` translates to and from the database's column names):
 
 ```js
 {
@@ -346,12 +378,13 @@ Saved in `localStorage` as JSON (text) under one key, `study-tracker-v1`:
 
 ## Suggested libraries
 
-React and Vite are already installed. Everything else in v1 can be built without libraries. I will **ask before installing** any of these:
+React and Vite were installed from the start. I always **ask before installing** a library.
 
-| Library | Why | Needed? |
+| Library | Why | Status |
 |---|---|---|
-| `vite-plugin-pwa` | Creates the app manifest and the offline "service worker" for you. Writing these by hand is easy to get wrong. | Recommended for step 9 |
-| `vitest` | Runs automatic tests on the math (totals, streak, week ranges), so we know they're right. It fits Vite out of the box. | Optional, step 2 |
+| `@supabase/supabase-js` | Talks to Supabase: logins and the database. | **Installed** (approved for story 11) |
+| `vite-plugin-pwa` | Creates the app manifest and the offline "service worker" for you. | Not used: we wrote `manifest.webmanifest` and `sw.js` by hand |
+| `vitest` | Runs automatic tests. | Not used: Node's built-in test runner (`npm test`) is enough |
 
 **Not needed, and why:**
 - **Chart library (e.g. Recharts):** one simple bar chart is easy to draw in SVG, and you'll learn more doing it that way.
