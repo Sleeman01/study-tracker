@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { supabase } from '../data/supabase.js'
 import { useAuth } from '../auth/AuthContext.js'
 import {
@@ -7,6 +7,8 @@ import {
   friendlyAuthError,
   MIN_PASSWORD_LENGTH,
 } from '../auth/authErrors.js'
+import { Field, FormMessage, NameField } from '../components/FormField.jsx'
+import { checkName, cleanName } from '../auth/userName.js'
 import './AuthScreen.css'
 
 // What the screen shows for each mode
@@ -81,12 +83,14 @@ export default function AuthScreen() {
 // ---------- Log in and sign up (same fields, different button) ----------
 function CredentialsForm({ mode, email, setEmail, onForgot }) {
   const isSignup = mode === 'signup'
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState({})
   const [serverError, setServerError] = useState('')
   const [notice, setNotice] = useState('')
   const [busy, setBusy] = useState(false)
+  const nameRef = useRef(null)
   const emailRef = useRef(null)
   const passwordRef = useRef(null)
 
@@ -94,17 +98,20 @@ function CredentialsForm({ mode, email, setEmail, onForgot }) {
     event.preventDefault()
     setServerError('')
     const newErrors = {
+      name: isSignup ? checkName(name) : '',
       email: checkEmail(email),
       password: isSignup ? checkNewPassword(password) : password ? '' : 'Enter your password.',
     }
     setErrors(newErrors)
+    if (newErrors.name) return nameRef.current.focus()
     if (newErrors.email) return emailRef.current.focus()
     if (newErrors.password) return passwordRef.current.focus()
 
     setBusy(true)
     const credentials = { email: email.trim(), password }
+    // options.data = user metadata, saved on the new account straight away
     const { data, error } = isSignup
-      ? await supabase.auth.signUp(credentials)
+      ? await supabase.auth.signUp({ ...credentials, options: { data: { name: cleanName(name) } } })
       : await supabase.auth.signInWithPassword(credentials)
     setBusy(false)
 
@@ -118,6 +125,9 @@ function CredentialsForm({ mode, email, setEmail, onForgot }) {
 
   return (
     <form className="form" onSubmit={handleSubmit} noValidate>
+      {isSignup ? (
+        <NameField value={name} onChange={setName} error={errors.name} inputRef={nameRef} />
+      ) : null}
       <EmailField value={email} onChange={setEmail} error={errors.email} inputRef={emailRef} />
       <Field
         label="Password"
@@ -272,55 +282,4 @@ function EmailField({ value, onChange, error, inputRef }) {
       onChange={onChange}
     />
   )
-}
-
-// A labelled input with an optional hint or error underneath
-function Field({ label, error, hint, inputRef, onChange, ...inputProps }) {
-  const id = useId()
-  const messageId = `${id}-message`
-  return (
-    <div className="field">
-      <label className="field-label" htmlFor={id}>
-        {label}
-      </label>
-      <input
-        {...inputProps}
-        id={id}
-        ref={inputRef}
-        className="input"
-        onChange={(e) => onChange(e.target.value)}
-        aria-invalid={error ? true : undefined}
-        aria-describedby={error || hint ? messageId : undefined}
-      />
-      {error ? (
-        <p id={messageId} className="field-error">
-          {error}
-        </p>
-      ) : hint ? (
-        <p id={messageId} className="field-hint">
-          {hint}
-        </p>
-      ) : null}
-    </div>
-  )
-}
-
-// A message from the server. role="alert" makes screen readers read an
-// error out straight away; role="status" reads good news politely.
-function FormMessage({ error, notice }) {
-  if (error) {
-    return (
-      <p role="alert" className="form-error">
-        {error}
-      </p>
-    )
-  }
-  if (notice) {
-    return (
-      <p role="status" className="form-notice">
-        {notice}
-      </p>
-    )
-  }
-  return null
 }
