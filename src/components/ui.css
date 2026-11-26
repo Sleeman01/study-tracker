@@ -310,3 +310,22 @@
   padding: 0 var(--space-2);
   white-space: nowrap;
 }
+
+/* ---------- Account section (bottom of Subjects) ---------- */
+.account {
+  margin-top: var(--space-5);
+}
+
+.account-title {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.account .row {
+  border-top: 1px solid var(--rule);
+}
+
+.account-logout {
+  padding: 0 0.875rem;
+}
