@@ -23,15 +23,15 @@ Each step below is a **user story**: who wants something, what they want, and wh
 ## User stories
 
 ### Story 1: App shell with tab bar
-**Sprint 1** · Branch: `feature/app-shell` · Status: **Waiting for approval** (built, not committed yet)
+**Sprint 1** · Branch: `feature/app-shell` · Status: **Done**
 
 > As a student, I want a bottom tab bar with Today, Subjects, Stats and History, so that I can reach every part of the app with my thumb.
 
 Acceptance criteria:
-- [ ] The Vite demo page is gone. The app shows the "Today" screen when it opens.
-- [ ] Tapping each of the 4 tabs shows that screen, and the selected tab is visibly highlighted.
-- [ ] On a phone-sized screen, the tab bar stays at the bottom and doesn't cover any content.
-- [ ] Titles use the Recursive font, and the colors match the design direction below.
+- [x] The Vite demo page is gone. The app shows the "Today" screen when it opens.
+- [x] Tapping each of the 4 tabs shows that screen, and the selected tab is visibly highlighted.
+- [x] On a phone-sized screen, the tab bar stays at the bottom and doesn't cover any content.
+- [x] Titles use the Recursive font, and the colors match the design direction below.
 
 Skills: `frontend-design`, `react-best-practices`, `web-design-guidelines`
 
