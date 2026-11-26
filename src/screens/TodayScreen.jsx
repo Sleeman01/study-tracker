@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useStudyData } from '../data/useStudyData.js'
-import { formatLongDate } from '../utils/time.js'
+import { formatDuration, formatLongDate } from '../utils/time.js'
+import { newestFirst, sessionsOnDay, totalDuration } from '../utils/stats.js'
+import SessionRow from '../components/SessionRow.jsx'
 import { useNow } from '../utils/useNow.js'
 import EmptyState from '../components/EmptyState.jsx'
 import SubjectPicker from '../components/SubjectPicker.jsx'
@@ -21,6 +23,11 @@ export default function TodayScreen({ onNavigate }) {
     activeTimer?.subjectId ??
     (exists(chosenId) ? chosenId : exists(lastUsedId) ? lastUsedId : null)
   const selectedSubject = subjects.find((s) => s.id === selectedId) ?? null
+
+  // Today's finished sessions, newest first, and their total time
+  const todaySessions = newestFirst(sessionsOnDay(sessions, now))
+  const todayTotal = totalDuration(todaySessions)
+  const subjectsById = new Map(subjects.map((s) => [s.id, s]))
 
   return (
     <>
@@ -53,6 +60,26 @@ export default function TodayScreen({ onNavigate }) {
           />
         </>
       )}
+
+      {subjects.length > 0 ? (
+        <section className="today-summary" aria-labelledby="today-total-label">
+          <div className="today-total">
+            <h2 id="today-total-label" className="today-total-label">
+              Studied today
+            </h2>
+            <p className="today-total-value">{formatDuration(todayTotal)}</p>
+          </div>
+          {todaySessions.length === 0 ? (
+            <p className="today-none">No sessions yet today. Your finished sessions will appear here.</p>
+          ) : (
+            <ul className="ruled-list">
+              {todaySessions.map((session) => (
+                <SessionRow key={session.id} session={session} subject={subjectsById.get(session.subjectId)} />
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
     </>
   )
 }
