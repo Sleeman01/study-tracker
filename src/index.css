@@ -1,0 +1,113 @@
+/* ------------------------------------------------------------
+   Font: Recursive (saved in public/fonts so it works offline).
+   One file holds every style; we switch styles with
+   font-variation-settings (CASL = casual, MONO = monospace).
+   ------------------------------------------------------------ */
+@font-face {
+  font-family: 'Recursive';
+  src: url('/fonts/recursive-latin.woff2') format('woff2');
+  font-weight: 300 800;
+  font-style: oblique 0deg 15deg;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------
+   Design tokens: every color and size lives here, so the whole
+   app can be restyled by changing these lines.
+   ------------------------------------------------------------ */
+:root {
+  /* Colors: "notebook and highlighter" */
+  --paper: #f4f7fb;
+  --rule: #d3deea;
+  --rule-faint: #e4ebf3;
+  --ink: #1a2747;
+  --pencil: #5a6884;
+  --sheet: #ffffff;
+  --eraser: #c23a3a;
+
+  /* Font styles */
+  --font: 'Recursive', system-ui, sans-serif;
+  --casual: 'CASL' 1, 'MONO' 0;
+  --linear: 'CASL' 0, 'MONO' 0;
+  --mono: 'CASL' 0, 'MONO' 1;
+
+  /* Type scale (1rem = 16px) */
+  --text-sm: 0.8125rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 2rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+
+  /* Layout */
+  --tab-bar-height: 4rem;
+  --content-width: 34rem;
+
+  color-scheme: light;
+}
+
+/* ------------------------------------------------------------
+   Base styles
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font);
+  font-variation-settings: var(--linear);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--ink);
+  /* Faint ruled lines, like notebook paper */
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 31px,
+    var(--rule-faint) 31px 32px
+  );
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+/* A clear outline for keyboard users only (not on tap) */
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Respect the phone's "reduce motion" setting everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

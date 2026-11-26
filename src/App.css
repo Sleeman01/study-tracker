@@ -1,0 +1,89 @@
+/* ------------------------------------------------------------
+   App shell: screen area + bottom tab bar
+   ------------------------------------------------------------ */
+.screen {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  /* Room at the top for the phone's notch, and at the bottom
+     so content never hides behind the tab bar */
+  padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--space-3)
+    calc(var(--tab-bar-height) + var(--space-5) + env(safe-area-inset-bottom));
+}
+
+.screen-title {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  font-variation-settings: var(--casual);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.screen-intro {
+  margin-top: var(--space-2);
+  max-width: 32ch;
+  color: var(--pencil);
+}
+
+/* ------------------------------------------------------------
+   Tab bar
+   ------------------------------------------------------------ */
+.tab-bar {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  background: var(--sheet);
+  border-top: 1px solid var(--rule);
+  padding-bottom: env(safe-area-inset-bottom); /* above the phone's home bar */
+}
+
+.tab-bar-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.tab-button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  height: var(--tab-bar-height);
+  border: 0;
+  background: none;
+  color: var(--pencil);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  touch-action: manipulation; /* no double-tap zoom delay */
+}
+
+.tab-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* The selected tab: ink color, bolder label, and a short
+   highlighter stroke above the icon */
+.tab-button[aria-current='page'] {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.tab-button[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 2rem;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--ink);
+}
+
+.tab-button:focus-visible {
+  outline-offset: -4px;
+}
