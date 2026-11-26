@@ -69,6 +69,10 @@
 
 /* The selected tab: ink color, bolder label, and a short
    highlighter stroke above the icon */
+.tab-button:hover {
+  color: var(--ink);
+}
+
 .tab-button[aria-current='page'] {
   color: var(--ink);
   font-weight: 650;

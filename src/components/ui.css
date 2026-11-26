@@ -163,6 +163,10 @@
   animation: sheet-up 0.22s ease-out;
 }
 
+.dialog {
+  overscroll-behavior: contain; /* scrolling the sheet doesn't scroll the page */
+}
+
 .dialog::backdrop {
   background: rgb(26 39 71 / 0.45);
 }
