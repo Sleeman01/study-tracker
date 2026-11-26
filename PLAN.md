@@ -273,14 +273,14 @@ Acceptance criteria:
 Skills: `frontend-design`, `composition-patterns`, `dataviz`, `web-design-guidelines`, `playwright-cli`
 
 ### Story 19: Swipe between screens
-**Sprint 10** · Branch: `feature/swipe-tabs` · Status: **To do**
+**Sprint 10** · Branch: `feature/swipe-tabs` · Status: **Done**
 
 > As a student on my phone, I want to swipe left and right to change tabs, so that I can move around the app with one thumb.
 
 Acceptance criteria:
-- [ ] On a touch screen, swiping left goes to the next tab and swiping right to the previous one. A mouse never triggers it.
-- [ ] Scrolling up and down still works normally, and swipes are ignored in dialogs, text fields, the week chart and at the screen edges.
-- [ ] With "reduce motion" turned on, swiping still works but the screen changes without sliding.
+- [x] On a touch screen, swiping left goes to the next tab and swiping right to the previous one. A mouse never triggers it.
+- [x] Scrolling up and down still works normally, and swipes are ignored in dialogs, text fields, the week chart and at the screen edges.
+- [x] With "reduce motion" turned on, swiping still works but the screen changes without sliding.
 
 Skills: `animation-systems`, `superpowers:test-driven-development`, `react-best-practices`, `playwright-cli`
 

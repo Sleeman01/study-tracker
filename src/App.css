@@ -10,6 +10,9 @@
      so content never hides behind the tab bar */
   padding: calc(var(--space-5) + env(safe-area-inset-top)) var(--space-3)
     calc(var(--tab-bar-height) + var(--space-5) + env(safe-area-inset-bottom));
+  /* The browser handles up/down scrolling and pinch-zoom itself;
+     sideways finger moves are left to our swipe code (useSwipeTabs) */
+  touch-action: pan-y pinch-zoom;
 }
 
 .screen-title {
