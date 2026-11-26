@@ -1,5 +1,5 @@
 // Adding up study sessions. A session counts toward the day it STARTED.
-import { addDays, startOfDay } from './time.js'
+import { addDays, startOfDay, startOfWeek } from './time.js'
 
 export function sessionDuration(session) {
   return session.endedAt - session.startedAt
@@ -39,4 +39,29 @@ export function groupByDay(sessions) {
     sessions: daySessions,
     total: totalDuration(daySessions),
   }))
+}
+
+const HOUR_MS = 3_600_000
+
+// The 7 days of the week that `now` is in (Monday to Sunday),
+// each with its total study time: [{ dayStart, total }]
+export function weekTotals(sessions, now) {
+  const monday = startOfWeek(now)
+  return Array.from({ length: 7 }, (_, i) => {
+    const dayStart = addDays(monday, i)
+    const total = totalDuration(sessionsBetween(sessions, dayStart, addDays(dayStart, 1)))
+    return { dayStart, total }
+  })
+}
+
+// Picks a nice top for the chart's scale and where to draw gridlines.
+// For example, 5.2 hours -> top 6 h with lines at 2, 4, 6.
+export function chartScale(maxMs) {
+  const maxHours = maxMs / HOUR_MS
+  if (maxHours <= 1) return { top: 1, ticks: [0.5, 1] }
+  const step = maxHours <= 4 ? 1 : maxHours <= 8 ? 2 : 4
+  const top = Math.ceil(maxHours / step) * step
+  const ticks = []
+  for (let t = step; t <= top; t += step) ticks.push(t)
+  return { top, ticks }
 }
