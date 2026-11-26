@@ -201,15 +201,15 @@ Acceptance criteria:
 Skills: `frontend-design`, `web-design-guidelines`, `playwright-cli`
 
 ### Story 14: Save data in my account
-**Sprint 8** · Branch: `feature/cloud-data` · Status: **To do**
+**Sprint 8** · Branch: `feature/cloud-data` · Status: **Done**
 
 > As a student, I want my subjects and sessions saved to my account, so that they're still there on another device or after I log back in.
 
 Acceptance criteria:
-- [ ] Adding, editing and deleting subjects and sessions saves them to Supabase for the logged-in user. The screens work exactly as before.
-- [ ] After logging out and back in (or on another browser), my data is still there.
-- [ ] One user can never see another user's data. This was tested with two test accounts.
-- [ ] If saving fails (for example with no internet), the app shows a friendly message instead of silently losing the change.
+- [x] Adding, editing and deleting subjects and sessions saves them to Supabase for the logged-in user. The screens work exactly as before.
+- [x] After logging out and back in (or on another browser), my data is still there.
+- [x] One user can never see another user's data. This was tested with two test accounts.
+- [x] If saving fails (for example with no internet), the app shows a friendly message instead of silently losing the change.
 
 Skills: `react-best-practices`, `security-review`, `playwright-cli`
 

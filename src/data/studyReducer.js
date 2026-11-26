@@ -58,6 +58,11 @@ export function studyReducer(state, action) {
       // Used when the data changes in another tab of the app
       return action.data
 
+    case 'data/loaded':
+      // Fresh subjects and sessions from the cloud. The running timer
+      // belongs to this device, so it's kept as it is.
+      return { ...state, subjects: action.subjects, sessions: action.sessions }
+
     default:
       return state
   }
