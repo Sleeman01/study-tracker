@@ -24,6 +24,10 @@
   --pencil: #5a6884;
   --sheet: #ffffff;
   --eraser: #c23a3a;
+  /* The red line down a notebook's left margin (wide-screen navigation) */
+  --margin-line: #e6a7a7;
+  /* Highlighter band behind the selected sidebar item */
+  --highlight: rgb(47 111 219 / 0.16);
 
   /* Font styles */
   --font: 'Recursive', system-ui, sans-serif;
@@ -46,7 +50,12 @@
 
   /* Layout */
   --tab-bar-height: 4rem;
-  --content-width: 34rem;
+  --content-width: 34rem; /* phone */
+  --content-width-wide: 42rem; /* tablet */
+  --content-width-reading: 42rem; /* lists and forms on bigger screens */
+  --content-width-pc: 72rem; /* Today and Stats on a PC (2 columns) */
+  --nav-rail-width: 5.5rem; /* 88px */
+  --nav-sidebar-width: 14.5rem; /* 232px */
 
   color-scheme: light;
 }
@@ -63,6 +72,15 @@
 html {
   /* Keep focused items from hiding behind the tab bar */
   scroll-padding-bottom: calc(var(--tab-bar-height) + env(safe-area-inset-bottom) + 1rem);
+}
+
+@media (min-width: 700px) {
+  html {
+    scroll-padding-bottom: 1rem; /* no bottom bar on bigger screens */
+  }
+}
+
+html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
