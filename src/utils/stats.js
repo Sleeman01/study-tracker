@@ -24,3 +24,19 @@ export function sessionsOnDay(sessions, timestamp) {
 export function newestFirst(sessions) {
   return sessions.toSorted((a, b) => b.startedAt - a.startedAt)
 }
+
+// Groups sessions by the day they started, newest day first:
+// [{ dayStart, sessions: [...newest first], total }]
+export function groupByDay(sessions) {
+  const groups = new Map()
+  for (const session of newestFirst(sessions)) {
+    const day = startOfDay(session.startedAt)
+    if (!groups.has(day)) groups.set(day, [])
+    groups.get(day).push(session)
+  }
+  return [...groups].map(([dayStart, daySessions]) => ({
+    dayStart,
+    sessions: daySessions,
+    total: totalDuration(daySessions),
+  }))
+}

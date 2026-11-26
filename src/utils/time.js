@@ -68,3 +68,18 @@ export function startOfWeek(timestamp) {
   const daysSinceMonday = (day + 6) % 7
   return addDays(startOfDay(timestamp), -daysSinceMonday)
 }
+
+// "Today", "Yesterday", or a short date like "Mon 24 Nov"
+// (with the year added if it isn't this year)
+export function formatDayLabel(dayStart, now) {
+  const today = startOfDay(now)
+  if (dayStart === today) return 'Today'
+  if (dayStart === addDays(today, -1)) return 'Yesterday'
+  const sameYear = new Date(dayStart).getFullYear() === new Date(now).getFullYear()
+  return new Intl.DateTimeFormat(undefined, {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    year: sameYear ? undefined : 'numeric',
+  }).format(dayStart)
+}
