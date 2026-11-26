@@ -43,6 +43,8 @@ test('email and password checks', () => {
 test('recognises a wrong current password, whichever way Supabase says it', () => {
   assert.equal(isWrongCurrentPassword({ code: 'invalid_credentials' }), true)
   assert.equal(isWrongCurrentPassword({ code: 'current_password_mismatch' }), true)
+  // The real code Supabase sends (checked on the server, 26 Nov)
+  assert.equal(isWrongCurrentPassword({ code: 'current_password_invalid' }), true)
   assert.equal(isWrongCurrentPassword({ code: 'current_password_required' }), true)
   assert.equal(isWrongCurrentPassword({ code: 'reauthentication_not_valid' }), true)
   assert.equal(isWrongCurrentPassword({ message: 'Current password is incorrect' }), true)
