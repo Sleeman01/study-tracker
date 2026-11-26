@@ -76,8 +76,8 @@ If you change `.env.local`, stop `npm run dev` and start it again.
 1. **Create the tables:** go to **SQL Editor** → New query, paste all of `supabase/schema.sql`, and press **Run**. This creates `subjects` and `sessions` with Row Level Security. It's safe to run again.
 2. **Site URL** (Authentication → URL Configuration): your live address, e.g. `https://study-tracker22.vercel.app`.
 3. **Redirect URLs** (same page): add `http://localhost:5173` and your live address. "Forgot password" links only open addresses on this list.
-4. **Require current password when updating** (Authentication settings): turn it **on**. Changing your password then needs the old one. A reset link from "Forgot password" still works without it.
-5. **Confirm email** (Authentication → Sign In / Providers → Email):
+4. **Require current password when updating** (Authentication → Sign In / Providers → **Email**, in the Email provider panel): turn it **on**. Changing your password then needs the old one. A reset link from "Forgot password" still works without it.
+5. **Confirm email** (Authentication → Sign In / Providers, in the **User Signups** section at the top of the page):
    - **Off** is easiest for testing: you're logged in right after signing up.
    - **On** is better for real users, because it proves they own the email. The app then says "Check your email" after signing up.
 6. **Email sending:** Supabase's built-in email only sends to your own team's addresses, a few per hour. To send "Forgot password" and confirmation emails to everyone, add your own SMTP server (Authentication → Emails).
