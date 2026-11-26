@@ -36,14 +36,14 @@ Acceptance criteria:
 Skills: `frontend-design`, `react-best-practices`, `web-design-guidelines`
 
 ### Story 2: Save data on the device
-**Sprint 1** · Branch: `feature/data-storage` · Status: To do
+**Sprint 1** · Branch: `feature/data-storage` · Status: **Done**
 
 > As a student, I want my subjects and sessions saved on my phone, so that nothing is lost when I close the app.
 
 Acceptance criteria:
-- [ ] Data saved by the app is still there after reloading the page. You can see it in browser DevTools → Application → Local Storage → `study-tracker-v1`.
-- [ ] If there's no saved data yet, the app starts with empty lists instead of crashing.
-- [ ] If the saved data is broken (not valid JSON), the app still opens with empty lists.
+- [x] Data saved by the app is still there after reloading the page. You can see it in browser DevTools → Application → Local Storage → `study-tracker-v1`.
+- [x] If there's no saved data yet, the app starts with empty lists instead of crashing.
+- [x] If the saved data is broken (not valid JSON), the app still opens with empty lists.
 
 Skills: `react-best-practices`, `superpowers:test-driven-development` (only if you approve Vitest)
 
