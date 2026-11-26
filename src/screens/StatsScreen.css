@@ -1,0 +1,151 @@
+/* ---------- Sections on the Stats screen ---------- */
+.stats-section + .stats-section {
+  margin-top: var(--space-5);
+}
+
+.stats-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.stats-section-title {
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.stats-section-meta {
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+.stats-section-value {
+  font-size: var(--text-lg);
+  font-weight: 650;
+  font-variation-settings: var(--mono);
+}
+
+/* ---------- Weekly bar chart ---------- */
+.week-chart {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  background: var(--sheet);
+}
+
+.week-readout {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.week-readout-day {
+  font-weight: 600;
+}
+
+.week-readout-value {
+  font-weight: 650;
+  font-variation-settings: var(--mono);
+}
+
+.week-plot {
+  --plot-height: 160px;
+  --label-height: 28px;
+  position: relative;
+  padding-left: 2.25rem; /* room for the hour labels */
+}
+
+/* Gridlines sit in a layer covering only the bar area (not the labels) */
+.week-grid-layer {
+  position: absolute;
+  top: 0;
+  left: 2.25rem;
+  right: 0;
+  height: var(--plot-height);
+  pointer-events: none;
+}
+
+.week-grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--rule-faint);
+}
+
+.week-tick {
+  position: absolute;
+  right: 100%;
+  top: 0;
+  padding-right: var(--space-1);
+  transform: translateY(-50%);
+  font-size: 0.6875rem;
+  font-variation-settings: var(--mono);
+  color: var(--pencil);
+  white-space: nowrap;
+}
+
+.week-bars {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+/* Each column is a button: the whole column is the tap target */
+.week-col {
+  display: grid;
+  grid-template-rows: var(--plot-height) var(--label-height);
+  justify-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background: none;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+/* The selected day gets a faint highlighter band behind it */
+.week-col.is-selected {
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+.week-col:focus-visible {
+  outline-offset: -2px;
+}
+
+.week-bar-area {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: center;
+  border-bottom: 1px solid var(--rule); /* the baseline */
+}
+
+.week-bar {
+  width: min(24px, 60%);
+  border-radius: 4px 4px 0 0; /* rounded top, flat on the baseline */
+  background: var(--ink);
+  transition: height 0.3s ease;
+}
+
+/* A day with no study: a short flat stub so "zero" is visible */
+.week-bar.is-zero {
+  height: 3px;
+  border-radius: 0;
+  background: var(--rule);
+}
+
+.week-day {
+  align-self: center;
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+.week-day.is-today {
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline 2px;
+  text-underline-offset: 4px;
+}
