@@ -329,3 +329,12 @@
 .account-logout {
   padding: 0 0.875rem;
 }
+
+/* ---------- Upload old data dialog ---------- */
+.upload-error {
+  margin-bottom: var(--space-3);
+}
+
+.upload-done {
+  width: 100%;
+}
