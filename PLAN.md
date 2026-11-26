@@ -176,14 +176,14 @@ Acceptance criteria:
 Skills: `security-review`, `superpowers:verification-before-completion`
 
 ### Story 12: Database tables with Row Level Security
-**Sprint 6** · Branch: `feature/database-schema` · Status: **To do**
+**Sprint 6** · Branch: `feature/database-schema` · Status: **Done**
 
 > As a student, I want my subjects and sessions stored in tables that only I can read and change, so that nobody else can see my study data.
 
 Acceptance criteria:
-- [ ] `supabase/schema.sql` creates `subjects` and `sessions`, each with a `user_id` that points to `auth.users`.
-- [ ] Row Level Security is on for both tables, with policies so a user can only select, insert, update and delete their own rows.
-- [ ] The SQL has been run in the Supabase SQL Editor (by you), and both tables show up in the Table Editor.
+- [x] `supabase/schema.sql` creates `subjects` and `sessions`, each with a `user_id` that points to `auth.users`.
+- [x] Row Level Security is on for both tables, with policies so a user can only select, insert, update and delete their own rows.
+- [x] The SQL has been run in the Supabase SQL Editor (by you), and both tables show up in the Table Editor.
 
 Skills: `security-review`
 
