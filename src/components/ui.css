@@ -1,0 +1,302 @@
+/* ------------------------------------------------------------
+   Shared pieces used on several screens
+   ------------------------------------------------------------ */
+
+/* Screen header: title on the left, an action on the right */
+.screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- Buttons ---------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 1.25rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--sheet);
+  font-weight: 650;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.1s ease;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button-secondary {
+  background: var(--sheet);
+  color: var(--ink);
+  border-color: var(--rule);
+}
+
+.button-danger {
+  background: var(--eraser);
+  border-color: var(--eraser);
+}
+
+.button-small {
+  min-height: 44px;
+  padding: 0 0.875rem 0 0.625rem;
+  font-size: var(--text-sm);
+}
+
+/* Square icon-only buttons (edit, delete). 44px = easy to tap */
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 10px;
+  background: none;
+  color: var(--pencil);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.icon-button:hover {
+  background: var(--rule-faint);
+  color: var(--ink);
+}
+
+.icon-button-danger:hover {
+  color: var(--eraser);
+}
+
+/* ---------- Ruled list: rows like lines in a notebook ---------- */
+.ruled-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 64px;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row-main {
+  flex: 1;
+  min-width: 0; /* lets long names shrink instead of overflowing */
+}
+
+.row-title {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-meta {
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+.row-value {
+  font-variation-settings: var(--mono);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+/* A subject's color dot */
+.dot {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--dot);
+}
+
+/* ---------- Empty state ---------- */
+.empty-state {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+}
+
+.empty-state-title {
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.empty-state-text {
+  max-width: 34ch;
+  color: var(--pencil);
+}
+
+/* ---------- Dialog: a sheet that slides up from the bottom ---------- */
+.dialog {
+  width: 100%;
+  max-width: var(--content-width);
+  max-height: 90dvh;
+  margin: auto auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 20px 20px 0 0;
+  background: var(--sheet);
+  color: var(--ink);
+}
+
+.dialog[open] {
+  animation: sheet-up 0.22s ease-out;
+}
+
+.dialog::backdrop {
+  background: rgb(26 39 71 / 0.45);
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
+.dialog-body {
+  padding: var(--space-4) var(--space-3) calc(var(--space-4) + env(safe-area-inset-bottom));
+}
+
+.dialog-title {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-lg);
+  font-variation-settings: var(--casual);
+}
+
+.dialog-text {
+  margin-bottom: var(--space-4);
+  color: var(--pencil);
+}
+
+.dialog-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+}
+
+/* On bigger screens the sheet floats in the middle instead */
+@media (min-width: 600px) {
+  .dialog {
+    margin: auto;
+    border-radius: 20px;
+  }
+}
+
+/* ---------- Forms ---------- */
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.field-label {
+  padding: 0;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-3);
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  background: var(--sheet);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem; /* 16px or more stops iPhones zooming in */
+}
+
+.input:focus {
+  border-color: var(--ink);
+  outline: none;
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--eraser);
+}
+
+.input-short {
+  max-width: 8rem;
+}
+
+.field-hint {
+  font-size: var(--text-sm);
+  color: var(--pencil);
+}
+
+.field-error {
+  font-size: var(--text-sm);
+  color: var(--eraser);
+  font-weight: 600;
+}
+
+/* ---------- Color swatches ---------- */
+.swatch-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.swatch {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+}
+
+.swatch-dot {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--swatch);
+  color: var(--sheet);
+}
+
+/* The chosen color gets an ink ring */
+.swatch input:checked + .swatch-dot {
+  box-shadow:
+    0 0 0 2px var(--sheet),
+    0 0 0 4px var(--ink);
+}
+
+.swatch input:focus-visible + .swatch-dot {
+  outline: 2px solid var(--ink);
+  outline-offset: 5px;
+}
