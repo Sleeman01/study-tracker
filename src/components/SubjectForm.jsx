@@ -1,4 +1,4 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import ColorSwatches from './ColorSwatches.jsx'
 
 const MAX_GOAL_HOURS = 100
@@ -12,6 +12,8 @@ export default function SubjectForm({ subject, defaultColor, onSave, onCancel })
   const [errors, setErrors] = useState({})
   const nameId = useId()
   const goalId = useId()
+  const nameRef = useRef(null)
+  const goalRef = useRef(null)
 
   function handleSubmit(event) {
     event.preventDefault() // stop the browser reloading the page
@@ -25,7 +27,9 @@ export default function SubjectForm({ subject, defaultColor, onSave, onCancel })
       newErrors.goal = `Enter a number of hours from 0 to ${MAX_GOAL_HOURS}.`
     }
     setErrors(newErrors)
-    if (Object.keys(newErrors).length > 0) return
+    // Move the cursor to the first field that needs fixing
+    if (newErrors.name) return nameRef.current.focus()
+    if (newErrors.goal) return goalRef.current.focus()
 
     onSave({ name: trimmedName, color, weeklyGoalHours: hours })
   }
@@ -38,13 +42,15 @@ export default function SubjectForm({ subject, defaultColor, onSave, onCancel })
         </label>
         <input
           id={nameId}
+          ref={nameRef}
+          name="subject-name"
           className="input"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           maxLength={40}
           autoComplete="off"
-          placeholder="e.g. Biology"
+          placeholder="e.g. Biology…"
           aria-invalid={errors.name ? true : undefined}
           aria-describedby={errors.name ? `${nameId}-error` : undefined}
         />
@@ -63,12 +69,15 @@ export default function SubjectForm({ subject, defaultColor, onSave, onCancel })
         </label>
         <input
           id={goalId}
+          ref={goalRef}
+          name="weekly-goal"
+          autoComplete="off"
           className="input input-short"
           type="text"
           inputMode="decimal"
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          placeholder="e.g. 5"
+          placeholder="e.g. 5…"
           aria-invalid={errors.goal ? true : undefined}
           aria-describedby={errors.goal ? `${goalId}-error` : `${goalId}-hint`}
         />
