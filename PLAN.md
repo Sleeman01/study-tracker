@@ -98,15 +98,15 @@ Acceptance criteria:
 Skills: `frontend-design`, `web-design-guidelines`
 
 ### Story 7: Weekly bar chart
-**Sprint 4** · Branch: `feature/week-chart` · Status: To do
+**Sprint 4** · Branch: `feature/week-chart` · Status: **Done**
 
 > As a student, I want a bar chart of hours studied each day this week, so that I can spot which days I'm skipping.
 
 Acceptance criteria:
-- [ ] The chart shows 7 bars, Monday to Sunday, for the current week, and today's bar stands out.
-- [ ] Tapping a bar shows the exact time for that day.
-- [ ] Days with no studying show an empty bar (zero), not a gap or an error.
-- [ ] The same numbers are also available as text, for screen readers.
+- [x] The chart shows 7 bars, Monday to Sunday, for the current week, and today's bar stands out.
+- [x] Tapping a bar shows the exact time for that day.
+- [x] Days with no studying show an empty bar (zero), not a gap or an error.
+- [x] The same numbers are also available as text, for screen readers.
 
 Skills: `dataviz`, `frontend-design`
 
