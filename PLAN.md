@@ -261,14 +261,14 @@ Acceptance criteria:
 Skills: `frontend-design`, `web-design-guidelines`, `security-review`, `playwright-cli`
 
 ### Story 18: Looks good on every screen
-**Sprint 10** · Branch: `feature/responsive-layout` · Status: **To do**
+**Sprint 10** · Branch: `feature/responsive-layout` · Status: **Done**
 
 > As a student, I want the app to look right on my phone, a tablet and my computer, so that it never feels like a stretched phone app.
 
 Acceptance criteria:
-- [ ] Phones (under 700px) keep the bottom tab bar. Tablets get a narrow side rail, and PCs (1100px and wider) get a side navigation, drawn like a notebook margin.
-- [ ] Content has a sensible maximum width. On a PC, Today shows the timer and today's sessions side by side, and Stats uses 2 columns.
-- [ ] Screenshots at 375px, 768px, 1280px and 1920px wide show every screen with nothing cut off, overlapping or stretched.
+- [x] Phones (under 700px) keep the bottom tab bar. Tablets get a narrow side rail, and PCs (1100px and wider) get a side navigation, drawn like a notebook margin.
+- [x] Content has a sensible maximum width. On a PC, Today shows the timer and today's sessions side by side, and Stats uses 2 columns.
+- [x] Screenshots at 375px, 768px, 1280px and 1920px wide show every screen with nothing cut off, overlapping or stretched.
 
 Skills: `frontend-design`, `composition-patterns`, `dataviz`, `web-design-guidelines`, `playwright-cli`
 
