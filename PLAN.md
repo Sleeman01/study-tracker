@@ -164,14 +164,14 @@ Your data moves from "only on this phone" to "in your own account", so it's safe
 | Sprint 8 | 14, 15 | Save data in the cloud and bring old data along |
 
 ### Story 11: Connect to Supabase
-**Sprint 6** · Branch: `feature/supabase-setup` · Status: **To do**
+**Sprint 6** · Branch: `feature/supabase-setup` · Status: **Done**
 
 > As a student, I want the app connected to an online database, so that my data can be saved in my account instead of only on one phone.
 
 Acceptance criteria:
-- [ ] `@supabase/supabase-js` is installed, and there is one client file (`src/data/supabase.js`) that reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from `.env.local`.
-- [ ] `.env.local` is listed in `.gitignore` and is never committed. `.env.example` shows which values are needed, with no real keys.
-- [ ] Only the public anon key is used. The service_role / secret key is never used or asked for.
+- [x] `@supabase/supabase-js` is installed, and there is one client file (`src/data/supabase.js`) that reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from `.env.local`.
+- [x] `.env.local` is listed in `.gitignore` and is never committed. `.env.example` shows which values are needed, with no real keys.
+- [x] Only the public anon key is used. The service_role / secret key is never used or asked for.
 
 Skills: `security-review`, `superpowers:verification-before-completion`
 
