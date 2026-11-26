@@ -228,6 +228,64 @@ Skills: `superpowers:verification-before-completion`, `playwright-cli`
 
 ---
 
+## Version 3: name, profile, every screen size, swipe
+
+| Sprint | Stories | Goal |
+|---|---|---|
+| Sprint 9 | 16, 17 | Your name and a Profile screen |
+| Sprint 10 | 18, 19 | Looks good on phone, tablet and PC; swipe between tabs |
+
+### Story 16: My name
+**Sprint 9** · Branch: `feature/user-name` · Status: **Done**
+
+> As a student, I want the app to know my name, so that it feels like my own notebook.
+
+Acceptance criteria:
+- [x] Signing up asks for my name (required, 1-40 characters), with friendly errors.
+- [x] An account without a name sees a one-time "What's your name?" screen after logging in. If saving fails because I'm offline, I can continue, and I'm asked again next time.
+- [x] The Today screen says "Hello, <my name>".
+- [x] The name is saved in my Supabase account (user metadata), so it shows on every device. Only I can read it.
+
+Skills: `frontend-design`, `security-review`, `superpowers:test-driven-development`, `playwright-cli`
+
+### Story 17: Profile screen
+**Sprint 9** · Branch: `feature/profile-screen` · Status: **To do**
+
+> As a student, I want one place for my account, so that I can change my name or password and log out.
+
+Acceptance criteria:
+- [ ] A 5th tab, Profile, shows my name (editable), my email, "Change password" and "Log out". "Logged in as" is gone from Subjects.
+- [ ] Changing my password needs my current password. Supabase checks it too ("Require current password when updating"), and a wrong one shows a friendly message.
+- [ ] Saving a new name updates "Hello, <name>" straight away.
+
+Skills: `frontend-design`, `web-design-guidelines`, `security-review`, `playwright-cli`
+
+### Story 18: Looks good on every screen
+**Sprint 10** · Branch: `feature/responsive-layout` · Status: **To do**
+
+> As a student, I want the app to look right on my phone, a tablet and my computer, so that it never feels like a stretched phone app.
+
+Acceptance criteria:
+- [ ] Phones (under 700px) keep the bottom tab bar. Tablets get a narrow side rail, and PCs (1100px and wider) get a side navigation, drawn like a notebook margin.
+- [ ] Content has a sensible maximum width. On a PC, Today shows the timer and today's sessions side by side, and Stats uses 2 columns.
+- [ ] Screenshots at 375px, 768px, 1280px and 1920px wide show every screen with nothing cut off, overlapping or stretched.
+
+Skills: `frontend-design`, `composition-patterns`, `dataviz`, `web-design-guidelines`, `playwright-cli`
+
+### Story 19: Swipe between screens
+**Sprint 10** · Branch: `feature/swipe-tabs` · Status: **To do**
+
+> As a student on my phone, I want to swipe left and right to change tabs, so that I can move around the app with one thumb.
+
+Acceptance criteria:
+- [ ] On a touch screen, swiping left goes to the next tab and swiping right to the previous one. A mouse never triggers it.
+- [ ] Scrolling up and down still works normally, and swipes are ignored in dialogs, text fields, the week chart and at the screen edges.
+- [ ] With "reduce motion" turned on, swiping still works but the screen changes without sliding.
+
+Skills: `animation-systems`, `superpowers:test-driven-development`, `react-best-practices`, `playwright-cli`
+
+---
+
 ## Visual design direction: "notebook and highlighter"
 
 **Idea:** the app feels like a student's notebook. The paper is cool and blue-ruled, the text looks like navy ink, and each subject is a highlighter color. Lists look like lines on notebook paper, not stacks of identical cards.

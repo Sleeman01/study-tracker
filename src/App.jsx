@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useAuth } from './auth/AuthContext.js'
 import StudyDataProvider from './data/StudyDataProvider.jsx'
 import AuthScreen from './screens/AuthScreen.jsx'
+import NameScreen from './screens/NameScreen.jsx'
+import { getUserName } from './auth/userName.js'
 import UploadLocalDataDialog from './components/UploadLocalDataDialog.jsx'
 import TabBar from './components/TabBar.jsx'
 import TodayScreen from './screens/TodayScreen.jsx'
@@ -22,6 +24,9 @@ const SCREENS = {
 // login screen or the app with its tabs.
 export default function App() {
   const { session, user, recovering } = useAuth()
+  // Which account chose "Continue without a name" (only offered when offline).
+  // It's not saved anywhere, so the question comes back next time.
+  const [skippedNameFor, setSkippedNameFor] = useState(null)
 
   if (session === undefined) {
     return (
@@ -31,6 +36,9 @@ export default function App() {
     )
   }
   if (!session || recovering) return <AuthScreen />
+  if (!getUserName(user) && skippedNameFor !== user.id) {
+    return <NameScreen onContinue={() => setSkippedNameFor(user.id)} />
+  }
 
   // key={user.id}: if a different person logs in, React starts the data
   // fresh for them instead of keeping the previous person's data around.
