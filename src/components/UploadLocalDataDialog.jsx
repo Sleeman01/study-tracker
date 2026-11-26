@@ -4,7 +4,8 @@ import { useAuth } from '../auth/AuthContext.js'
 import { useStudyData } from '../data/useStudyData.js'
 import { loadData, STORAGE_KEY } from '../data/storage.js'
 import { askedKey, BACKUP_KEY, describeCounts, hasLocalData, prepareUpload } from '../data/migration.js'
-import { isOfflineError, uploadStudyData } from '../data/cloudStore.js'
+import { uploadStudyData } from '../data/cloudStore.js'
+import { isOfflineError } from '../data/syncMessages.js'
 
 // On first login: "You have data on this device. Upload it to your account?"
 export default function UploadLocalDataDialog() {

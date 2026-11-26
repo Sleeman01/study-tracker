@@ -80,20 +80,3 @@ export async function uploadStudyData({ subjects, sessions }) {
   await insertMissing('subjects', subjects.map(subjectToRow))
   await insertMissing('sessions', sessions.map(sessionToRow))
 }
-
-// True when the problem is "no internet", not a mistake in the data
-export function isOfflineError(error) {
-  return (
-    (typeof navigator !== 'undefined' && navigator.onLine === false) ||
-    /failed to fetch|network|load failed/i.test(error?.message ?? '')
-  )
-}
-
-// Friendly text when saving or loading fails
-export function friendlySyncError(error) {
-  if (isOfflineError(error)) return "You're offline, so your last change wasn't saved to your account."
-  if (error?.code === 'PGRST301' || error?.status === 401) {
-    return 'Your login has expired. Log out and log in again to keep saving.'
-  }
-  return "Your last change couldn't be saved. Please try again."
-}

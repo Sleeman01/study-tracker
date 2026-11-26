@@ -4,6 +4,7 @@ import { MIN_SESSION_MS, studyReducer } from './studyReducer.js'
 import { loadData, parseData, saveData, userStorageKey } from './storage.js'
 import { makeId } from './makeId.js'
 import * as cloud from './cloudStore.js'
+import { friendlyLoadError, friendlySyncError } from './syncMessages.js'
 import { useAuth } from '../auth/AuthContext.js'
 
 // Gives every screen { data, actions }, exactly like before accounts.
@@ -59,7 +60,7 @@ export default function StudyDataProvider({ children }) {
           current ||
           (hasDeviceCopy.current
             ? "Can't reach your account right now. Showing the copy saved on this device."
-            : cloud.friendlySyncError(error)),
+            : friendlyLoadError(error)),
       )
     }
   }, [])
@@ -72,7 +73,7 @@ export default function StudyDataProvider({ children }) {
         try {
           await cloudCall()
         } catch (error) {
-          setMessage(cloud.friendlySyncError(error))
+          setMessage(friendlySyncError(error))
           pendingSaves.current -= 1
           refresh() // show what is really saved
           return
