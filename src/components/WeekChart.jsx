@@ -15,7 +15,8 @@ export default function WeekChart({ days, todayStart }) {
   const chosen = days[selected]
 
   return (
-    <figure className="week-chart">
+    // data-no-swipe: tapping and dragging across the bars must not change tabs
+    <figure className="week-chart" data-no-swipe>
       <figcaption className="sr-only">Hours studied each day this week</figcaption>
 
       {/* The readout: shows the exact time of the tapped day */}

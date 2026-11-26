@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useAuth } from './auth/AuthContext.js'
 import StudyDataProvider from './data/StudyDataProvider.jsx'
 import AuthScreen from './screens/AuthScreen.jsx'
 import NameScreen from './screens/NameScreen.jsx'
 import { getUserName } from './auth/userName.js'
+import { useSwipeTabs } from './utils/useSwipeTabs.js'
 import UploadLocalDataDialog from './components/UploadLocalDataDialog.jsx'
 import MainNav from './components/MainNav.jsx'
 import TodayScreen from './screens/TodayScreen.jsx'
@@ -61,12 +62,16 @@ function TabsApp() {
     window.scrollTo(0, 0) // start each screen at the top
   }
 
+  // Swipe left/right on the screen to change tabs (touch screens only)
+  const screenRef = useRef(null)
+  useSwipeTabs(screenRef, currentTab, handleTabChange)
+
   const Screen = SCREENS[currentTab]
 
   return (
     <div className="app">
       <MainNav currentTab={currentTab} onTabChange={handleTabChange} />
-      <main className="screen" data-screen={currentTab}>
+      <main ref={screenRef} className="screen" data-screen={currentTab}>
         <Screen onNavigate={handleTabChange} />
       </main>
       <UploadLocalDataDialog />
