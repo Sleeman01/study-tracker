@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useStudyData } from '../data/useStudyData.js'
+import { useAuth } from '../auth/AuthContext.js'
+import { getUserName } from '../auth/userName.js'
 import { formatDuration, formatLongDate } from '../utils/time.js'
 import { newestFirst, sessionsOnDay, totalDuration } from '../utils/stats.js'
 import SessionRow from '../components/SessionRow.jsx'
@@ -12,6 +14,7 @@ import './TodayScreen.css'
 export default function TodayScreen({ onNavigate }) {
   const { data, actions } = useStudyData()
   const { subjects, sessions, activeTimer } = data
+  const name = getUserName(useAuth().user)
   const now = useNow(60_000) // once a minute is enough for the date
   const [chosenId, setChosenId] = useState(null)
 
@@ -32,7 +35,7 @@ export default function TodayScreen({ onNavigate }) {
   return (
     <>
       <div className="screen-header today-header">
-        <h1 className="screen-title">Today</h1>
+        <h1 className="screen-title">{name ? `Hello, ${name}` : 'Today'}</h1>
         <p className="today-date">{formatLongDate(now)}</p>
       </div>
 
